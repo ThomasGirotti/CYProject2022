@@ -2,10 +2,10 @@
 typedef struct image{
   int x;
   int y;
-  pixel;
+  pix pixel;
 }
 
-typedef struct pixel{
+typedef struct pix{
   int** red[][];
   int** green[][];
   int** blue[][];

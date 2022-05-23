@@ -1,16 +1,23 @@
 
 void miroir(image img){
-  int pixel=0;
+  int pixel_red=0;
+  int pixel_green=0;
+  int pixel_blue=0;
   int x;
   int y;
   x=img.x;
   y=img.y;
   for(int i=0; i<x;i++){ // on balye les lignes
-    for(int j=0; j<y;j++){ // on baleye les collones
-      pixel=img.red[img.x][img.y]*0.2126+img.green[img.x][img.y]*0.7152+img.blu[img.x][img.y]*0.0722; // application de la formule
-      img.pixel.red[x][y]=pixel; // transforme le rouge dans la bonne teinte
-      img.pixel.green[x][y]=pixel; // transforme le vert dans la bonne teinte
-      img.pixel.blue[x][y]=pixel; // transforme le bleu dans la bonne teinte
+    for(int j=0; j<y/2;j++){ // on baleye les collones
+      pixel_red=img.pixel.red[i][j]; // on stocke les valeur
+      pixel_green=img.pixel.red[i][j];
+      pixel_blue=img.pixel.red[i][j];
+      img.pixel.red[i][j]=img.pixel.red[i][y-j]; // on met la partie de droite à gauche    
+      img.pixel.green[i][j]=img.pixel.green[i][y-j];       
+      img.pixel.blue[i][j]=img.pixel.blue[i][y-j];
+      img.pixel.red[i][j]=pixel_red;  // on met la partie de gauche (stocké) à droite
+      img.pixel.green[i][j]=pixel_green;      
+      img.pixel.blue[i][j]=pixel_blue;
     }
   }  
 }

@@ -1,11 +1,11 @@
-void transform_gris(img* image,int x,int y){
+void transform_gris(image img){
   int pixel=0; 
   for(int i=0; i<x;i++){ // on balye les lignes
     for(int j=0; j<y;j++){ // on baleye les collones
-      pixel=image.red[x][y]*0.2126+image.green[x][y]*0.7152+image.blu[x][y]*0.0722; // application de la formule
-      image.red[x][y]=pixel; // transforme le rouge dans la bonne teinte
-      image.green[x][y]=pixel; // transforme le vert dans la bonne teinte
-      image.blue[x][y]=pixel; // transforme le bleu dans la bonne teinte
+      pixel=img.red[img.x][img.y]*0.2126+img.green[img.x][img.y]*0.7152+img.blu[img.x][img.y]*0.0722; // application de la formule
+      img.pixel.red[x][y]=pixel; // transforme le rouge dans la bonne teinte
+      img.pixel.green[x][y]=pixel; // transforme le vert dans la bonne teinte
+      img.pixel.blue[x][y]=pixel; // transforme le bleu dans la bonne teinte
     }
   }  
 }

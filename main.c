@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[]) {
 
-
+//Déclaration des variables
     int opt; 
     int binaryseuil; 
     int largeur; 
@@ -17,10 +17,10 @@ int main(int argc, char *argv[]) {
     char* inputname; 
     char* outputname;
 
-
+//Initialisation des variables
     inputname = malloc(100 * sizeof(char));
 
-
+//Définition des actions en fonction des arguments
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF) {
         switch(opt) {
             case 'h':
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
                 printf("-r ENTERED\n");
                 break;
             case 'x':
-            actio = optind;
+                actio = optind;
                 largeur = atoi(argv[actio-1]);
                 hauteur = atoi(argv[actio]);
                 epaisseur = atoi(argv[actio+1]);
@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
                 printf("-z ENTERED\n");
                 break;
             default:
-                printf("Mauvais argument entré ! \n");
+                printf("Les arguments ont mal été entrés ! \n");
                 break;
         }
     }

@@ -2,18 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
+//#include "fonction.h"
 
+//Macros
 #define OPTSTR "hb:cdefi:lgo:rx:sZz"
 
+//Fonction main
 int main(int argc, char *argv[]) {
 
 //Déclaration des variables
     int opt; 
-    int binaryseuil; 
+    int binaryseuil;
     int largeur; 
     int hauteur; 
     int epaisseur;
     int actio;
+    int x;
+    int y;
     char* inputname; 
     char* outputname;
 
@@ -80,5 +85,10 @@ int main(int argc, char *argv[]) {
                 break;
         }
     }
+
+    //Fonction chargement de l'image
+    //importimage(inputname,&x,&y);
+
+
     return 0;
 }

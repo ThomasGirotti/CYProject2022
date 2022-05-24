@@ -13,6 +13,7 @@ int main(int argc, char *argv[]) {
     int largeur; 
     int hauteur; 
     int epaisseur;
+    int actio;
     char* inputname; 
     char* outputname;
 
@@ -59,9 +60,10 @@ int main(int argc, char *argv[]) {
                 printf("-r ENTERED\n");
                 break;
             case 'x':
-                largeur = atoi(optarg);
-                hauteur = atoi(optarg);
-                epaisseur = atoi(optarg);
+            actio = optind;
+                largeur = atoi(argv[actio-1]);
+                hauteur = atoi(argv[actio]);
+                epaisseur = atoi(argv[actio+1]);
                 printf("-x ENTERED avec %d comme largeur, %d comme hauteur et %d comme epaisseur\n", largeur, hauteur, epaisseur);
                 break;
             case 's':

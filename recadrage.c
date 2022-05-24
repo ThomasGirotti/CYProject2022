@@ -3,7 +3,7 @@ void recadrage(image img,int tab[255]){
   int y;
   x=img.x;
   y=img.y;
-
+  
      
     }
   }  

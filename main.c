@@ -61,16 +61,3 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
-
-
-/*int openfile(char* filename){
-    FILE* file = NULL;
-    char* currentligne[];
-    
-    file = fopen("argv[1]","r")
-    if (file == NULL) {
-        printf("Erreur d'ouverture du fichier \n");
-    } else {
-        while (
-    }
-}*/

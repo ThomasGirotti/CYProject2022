@@ -3,7 +3,7 @@
 #include <string.h>
 #include <getopt.h>
 
-#define OPTSTR "h:b:c:d:e:f:i:l:g:o:r:x:s:Z:z"
+#define OPTSTR "hb:cdefi:lgo:rx:::sZz"
 
 int main(int argc, char *argv[]) {
     int opt;

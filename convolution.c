@@ -6,7 +6,7 @@ void convultion(image img, int** matrice){
       compteur=0;
       for (int k=0;k<2;k++){
         for (int l=0;l<2;l++){
-          compteur=compteur+matrice[k][l]*img2*[i+k][j+l];
+          compteur=compteur+matrice[k][l]*img*[i+k][j+l];
         }
       }
       img2[i][j]=compteur;

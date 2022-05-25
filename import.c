@@ -21,16 +21,23 @@ void importimage(char* inputname,int* x,int* y) {
     }
 
 //Vérification du format du fichier
-    laLigne=fgets(ligne,20,file);
+    fscan(file,"%s\n",laligne);
+    printf("%s",laLigne);
     if (strcmp(laLigne, "P3") == 0) {
-        printf("%s\n",laLigne);
         printf("Erreur : Le fichier n'est pas au format PPM P3\n");
         exit(1);
     }
 
 //Récupération de la résolution
     fseek(file, 2, SEEK_SET);
-    fscanf(file, "%d %d",x,y);
+    fscanf(file, "%d %d\n",x,y);
     printf("%d %d\n",*x,*y);
     
-}
+//Récupératiion des pixel
+    for(int i=0; i<pix; i++) {
+        fscanf(file,"%d\n",pixel.red)
+        fscanf(file,"%d\n",pixel.green)       
+        fscanf(file,"%d\n",pixel.blue)     
+    }
+    
+    

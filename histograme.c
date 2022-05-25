@@ -1,4 +1,4 @@
-void histograme(image img){
+int* histograme(image img){
   int tab[255];
   int x;
   int y;
@@ -9,5 +9,6 @@ void histograme(image img){
       tab[img.pixel.red[i][j]]=+1
       }
     }
-  }  
+  return tab*
+}  
 }

@@ -1,7 +1,8 @@
 int* histograme(image img){
-  int tab[255];
+  int* tab;
   int x;
   int y;
+  tab = malloc(255*sizeof(int));
   x=img.x;
   y=img.y;
   for(int i=0; i<x;i++){ // on balaie les lignes
@@ -9,6 +10,6 @@ int* histograme(image img){
       tab[img.pixel.red[i][j]]=+1
       }
     }
-  return tab*
+  return tab
 }  
 }

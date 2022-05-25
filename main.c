@@ -7,23 +7,34 @@
 //Macros
 #define OPTSTR "hb:cdefi:lgo:rx:sZz"
 
+typedef struct image{
+  int** red;
+  int** green;
+  int** blue;
+  int x;
+  int y;
+} image;
+
+void importimage(char* inputname,image image);
+
 //Fonction main
 int main(int argc, char *argv[]) {
 
 //Déclaration des variables
-    int opt; 
+    int opt;
     int binaryseuil;
-    int largeur; 
-    int hauteur; 
+    int largeur;
+    int hauteur;
     int epaisseur;
     int actio;
     int x;
     int y;
-    char* inputname; 
+    char* inputname;
     char* outputname;
+    image image;
 
 //Initialisation des variables
-    inputname = malloc(100 * sizeof(char));
+    inputname = (char*)malloc(100 * sizeof(char));
 
 //Définition des actions en fonction des arguments
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF) {
@@ -87,7 +98,7 @@ int main(int argc, char *argv[]) {
     }
 
     //Fonction chargement de l'image
-    //importimage(inputname,&x,&y);
+    importimage(inputname,image);
 
 
     return 0;

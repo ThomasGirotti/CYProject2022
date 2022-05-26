@@ -10,7 +10,7 @@ void importimage(char* inputname,image* im) {
 
 //Ouverture du fichier
     file = fopen(inputname,"r");
-    printf("file name is %s\n", inputname);
+    printf("file name is %s\n", inputname); //? LOG
 
 //Vérification de l'ouverture du fichier
     if (file == NULL) {
@@ -20,7 +20,7 @@ void importimage(char* inputname,image* im) {
 
 //Vérification du format du fichier
     fscanf(file,"%s\n",laLigne);
-    printf("%s\n",laLigne);
+    printf("%s\n",laLigne); //? LOG
     if (strcmp(laLigne, "P3") != 0) {
         printf("Erreur : Le fichier n'est pas au format PPM P3\n");
         exit(2);
@@ -28,11 +28,11 @@ void importimage(char* inputname,image* im) {
 
 //Récupération de la résolution
     fscanf(file, "%d %d\n",&im->x,&im->y);
-    printf("im.x = %d im.y = %d\n",im->x,im->y);
+    printf("im.x = %d im.y = %d\n",im->x,im->y); //? LOG
 
 //Récupération de la max value d'un pixel
     fscanf(file,"%d",&im->maxvalue);
-    printf("%d\n",im->maxvalue);
+    printf("%d\n",im->maxvalue); //? LOG
 
 //Initialisation du tableau
     im->red=(int**)malloc(im->x *sizeof(int*));
@@ -63,7 +63,7 @@ int exportimage(char* outputname,image* im) {
     FILE* file = NULL;
     //Creation du fichier
     file = fopen(outputname,"w");
-    printf("file name is %s\n", outputname);
+    printf("file name is %s\n", outputname); //? LOG
     //Ecriture dans le fichier
     fprintf(file,"P3\n");
     fprintf(file,"%d %d\n",im->x,im->y);
@@ -76,4 +76,17 @@ int exportimage(char* outputname,image* im) {
         }
     }
     fclose(file);
+}
+
+void printimage(image* im) {
+    printf("P3\n");
+    printf("%d %d\n",im->x,im->y);
+    printf("%d\n",im->maxvalue);
+    for(int i=0; i<im->y; i++) {
+        for (int j = 0; j <im->x; j++) {
+            printf("%d\n",im->red[j][i]);
+            printf("%d\n",im->green[j][i]);
+            printf("%d\n",im->blue[j][i]);
+        }
+    }
 }

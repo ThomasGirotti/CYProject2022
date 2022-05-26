@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
         importimage(inputname,&im); //? Maybe refaire cause function to return somthing
         printf("Image chargée !\n"); //? LOG
         printf("maxvaluetest = %d\n",im.maxvalue); //? LOG
-    } else if (largeur != 0) {
+    } else if (largeur != 0) { //TODO : refaire logique (déclenchement -x avec -i)
         //Fonction création de la croix
         //croix(&im,largeur,hauteur,epaisseur);
         printf("Croix crée !\n"); //? LOG

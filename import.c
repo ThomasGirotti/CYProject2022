@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "fonction.h"
+
 void importimage(char* inputname,image image) {
 
     int maxvalue;
@@ -18,16 +23,15 @@ void importimage(char* inputname,image image) {
 
 //Vérification du format du fichier
     fscanf(file,"%s\n",laLigne);
-    printf("%s",laLigne);
+    printf("%s\n",laLigne);
     if (strcmp(laLigne, "P3") != 0) {
         printf("Erreur : Le fichier n'est pas au format PPM P3\n");
         exit(1);
     }
 
 //Récupération de la résolution
-    fseek(file, 2, SEEK_SET);
     fscanf(file, "%d %d\n",&image.x,&image.y);
-    printf("%d %d\n",image.x,image.y);
+    printf("image.x = %d image.y = %d\n",image.x,image.y);
 
 //Récupération de la max value d'un pixel
     fscanf(file,"%d",&maxvalue);
@@ -48,8 +52,8 @@ void importimage(char* inputname,image image) {
     }
 
 //Récupératiion des pixel
-    for(int i=0; i<=image.y; i++) {
-        for (int j = 0; j <=image.x; j++) {
+    for(int i=0; i<image.y; i++) {
+        for (int j = 0; j <image.x; j++) {
             fscanf(file,"%d\n",&image.red[i][j]);
             fscanf(file,"%d\n",&image.green[i][j]);
             fscanf(file,"%d\n",&image.blue[i][j]);
@@ -63,9 +67,4 @@ void importimage(char* inputname,image image) {
             printf("%d\n",image.blue[i][j]);
         }
     }
-
-    printf("%d %d %d \n",image.red[254][252],image.green[254][252],image.blue[254][252]);
-    printf("%d %d %d \n",image.red[254][253],image.green[254][253],image.blue[254][253]);
-    printf("%d %d %d \n",image.red[254][254],image.green[254][254],image.blue[254][254]);
-    printf("%d %d %d \n",image.red[255][0],image.green[255][0],image.blue[255][0]);
 }

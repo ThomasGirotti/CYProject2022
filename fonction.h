@@ -1,12 +1,16 @@
-
+#ifndef _A_
+#define _A_
+//Definition Structure
 typedef struct image{
+  int** red;
+  int** green;
+  int** blue;
   int x;
   int y;
-  pix pixel;
-} 
+} image;
 
-typedef struct pix{
-  int red[x][y];
-  int green[x][y];
-  int blue[x][y];
-}
+//Prototypage
+void importimage(char* inputname,image image);
+
+
+#endif

@@ -11,7 +11,10 @@ typedef struct image{
 } image;
 
 //Prototypage
-void importimage(char* inputname,image im);
+void importimage(char* inputname,image* im);
+int exportimage(char* outputname,image* im);
+
+
 void binaire(image im,int seuil);
 int* histogramme(image im);
 void miroir(image im);

@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
             case 'r':
                 printf("-r ENTERED\n");
                 break;
-            case 'x':
+            case 'x': //TODO : check if actio + 1 exists
                 actio = optind;
                 largeur = atoi(argv[actio-1]);
                 hauteur = atoi(argv[actio]);
@@ -87,14 +87,13 @@ int main(int argc, char *argv[]) {
                 break;
         }
     }
-printf("%d\n",argc);
-    if (error == 0 && argc != 1) {
-        //Fonction chargement de l'image
-        importimage(inputname,image);
-    } else {
-        printf("Erreur : Les arguments ont mal été entrés !\n");
+    printf("argc = %d\n",argc);
+    if (error != 0 || argc == 1) {
+        printf("Erreur : Les arguments ont mal été entrés !\n Utilisez l'argument -h pour afficher l'aide.\n");
     }
 
+//Fonction chargement de l'image
+    importimage(inputname,image);
 
     return 0;
 }

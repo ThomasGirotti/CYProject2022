@@ -24,11 +24,11 @@ void binaire(image im,int seuil) { //TODO : Check
 //Fonction Convolution
 
 //Fonction Histogramme
-int* histogramme(image img) { //TODO : Remplace 255 by maxvalue and Check
+int* histogramme(image img) { //TODO : Check
     int* tab;
     int x;
     int y;
-    tab = malloc(255*sizeof(int));
+    tab = malloc(255*sizeof(int)); //TODO : Remplacer 255 par maxvalue
     x=img.x;
     y=img.y;
     for(int i=0; i<x;i++){ // on balaie les lignes
@@ -40,12 +40,12 @@ int* histogramme(image img) { //TODO : Remplace 255 by maxvalue and Check
 }
 
 //Fonction Mirroir
-void miroir(image im) { //TODO : Refaire la fonction (y impair ne fonctionne pas)
+void miroir(image im) { //TODO : Refaire la fonction
     int pixel_red=0;
     int pixel_green=0;
     int pixel_blue=0;
     for(int i=0; i<im.x;i++){ // on balaie les lignes
-        for(int j=0; j<im.y/2;j++){ // on balaie les colonnes
+        for(int j=0; j<im.y/2;j++){ // on balaie les colonnes //! y impair ne fonctionne pas
             pixel_red=im.red[i][j]; // on stock les valeurs
             pixel_green=im.green[i][j];
             pixel_blue=im.blue[i][j];
@@ -71,7 +71,7 @@ void negatif(image im) { //TODO : Check
 }
 
 //Fonction Recadrage_dyna
-void recadyna(image im) { //TODO : Replace coordonnees y dans im
+void recadyna(image im) { //TODO : Check
     int del;
     int* tab;
     int max;
@@ -91,9 +91,9 @@ void recadyna(image im) { //TODO : Replace coordonnees y dans im
     del = 255/(max-min);
     for (int i = 0; i < im.x; i++) {
         for (int j=0; j<im.y;j++){
-            //im.red[i][y]=(im.red[i][y]-min)*del;
-            //im.green[i][y]=(im.green[i][y]-min)*del;
-            //im.blue[i][y]=(im.blue[i][y]-min)*del;
+            //im.red[i][y]=(im.red[i][y]-min)*del; //! replace y
+            //im.green[i][y]=(im.green[i][y]-min)*del; //! replace y
+            //im.blue[i][y]=(im.blue[i][y]-min)*del; //! replace y
         }
     }
 }

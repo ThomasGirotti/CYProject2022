@@ -77,7 +77,7 @@ void recadyna(image im) { //TODO : Replace coordonnees y dans im
     int max;
     int min;
     tab = (int*)malloc(255*sizeof(int));
-    tab = histograme(im);
+    tab = histogramme(im);
     max = tab[0];
     min = tab[0];
     for (int i = 0; i < 255; i++) {

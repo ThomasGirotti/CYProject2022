@@ -2,20 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
-//#include "fonction.h"
+#include "fonction.h"
 
 //Macros
 #define OPTSTR "hb:cdefi:lgo:rx:sZz"
-
-typedef struct image{
-  int** red;
-  int** green;
-  int** blue;
-  int x;
-  int y;
-} image;
-
-void importimage(char* inputname,image image);
 
 //Fonction main
 int main(int argc, char *argv[]) {
@@ -29,6 +19,7 @@ int main(int argc, char *argv[]) {
     int actio;
     int x;
     int y;
+    int error = 0;
     char* inputname;
     char* outputname;
     image image;
@@ -92,13 +83,17 @@ int main(int argc, char *argv[]) {
                 printf("-z ENTERED\n");
                 break;
             default:
-                printf("Les arguments ont mal été entrés ! \n");
+                error++;
                 break;
         }
     }
-
-    //Fonction chargement de l'image
-    importimage(inputname,image);
+printf("%d\n",argc);
+    if (error == 0 && argc != 1) {
+        //Fonction chargement de l'image
+        importimage(inputname,image);
+    } else {
+        printf("Erreur : Les arguments ont mal été entrés !\n");
+    }
 
 
     return 0;

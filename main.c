@@ -10,7 +10,7 @@
 //Fonction main
 int main(int argc, char *argv[]) {
 
-//Déclaration des variables
+    //Déclaration des variables
     int opt;
     int binaryseuil;
     int largeur;
@@ -22,12 +22,12 @@ int main(int argc, char *argv[]) {
     int error = 0;
     char* inputname;
     char* outputname;
-    image image;
+    image im;
 
-//Initialisation des variables
+    //Initialisation des variables
     inputname = (char*)malloc(100 * sizeof(char));
 
-//Définition des actions en fonction des arguments
+    //Définition des actions en fonction des arguments
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF) {
         switch(opt) {
             case 'h':
@@ -88,12 +88,16 @@ int main(int argc, char *argv[]) {
         }
     }
     printf("argc = %d\n",argc);
+    printf("error = %d\n",error);
     if (error != 0 || argc == 1) {
-        printf("Erreur : Les arguments ont mal été entrés !\n Utilisez l'argument -h pour afficher l'aide.\n");
+        printf("Erreur : Les arguments ont mal été entrés !\nUtilisez l'argument -h pour afficher l'aide.\n");
+        exit(0);
     }
 
-//Fonction chargement de l'image
-    importimage(inputname,image);
-
+    //Fonction chargement de l'image
+    importimage(inputname,&im);
+    printf("Image chargée !\n");
+    printf("maxvaluetest = %d\n",im.maxvalue);
+    exportimage(outputname,&im);
     return 0;
 }

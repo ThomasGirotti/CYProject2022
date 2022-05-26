@@ -3,7 +3,7 @@
 #include <string.h>
 #include "fonction.h"
 
-void importimage(char* inputname,image image) {
+void importimage(char* inputname,image im) {
 
     char* laLigne;
     FILE* file = NULL;
@@ -29,33 +29,33 @@ void importimage(char* inputname,image image) {
     }
 
 //Récupération de la résolution
-    fscanf(file, "%d %d\n",&image.x,&image.y);
-    printf("image.x = %d image.y = %d\n",image.x,image.y);
+    fscanf(file, "%d %d\n",&im.x,&im.y);
+    printf("im.x = %d im.y = %d\n",im.x,im.y);
 
 //Récupération de la max value d'un pixel
-    fscanf(file,"%d",&image.maxvalue);
-    printf("%d\n",image.maxvalue);
+    fscanf(file,"%d",&im.maxvalue);
+    printf("%d\n",im.maxvalue);
 
 //Initialisation du tableau
-    image.red=(int**)malloc(image.x *sizeof(int*));
-    for (int g = 0; g < image.x; g++) {
-        image.red[g]=(int*)malloc(image.y *sizeof(int));
+    im.red=(int**)malloc(im.x *sizeof(int*));
+    for (int g = 0; g < im.x; g++) {
+        im.red[g]=(int*)malloc(im.y *sizeof(int));
     }
-    image.green=(int**)malloc(image.x *sizeof(int*));
-    for (int h = 0; h < image.x; h++) {
-        image.green[h]=(int*)malloc(image.y *sizeof(int));
+    im.green=(int**)malloc(im.x *sizeof(int*));
+    for (int h = 0; h < im.x; h++) {
+        im.green[h]=(int*)malloc(im.y *sizeof(int));
     }
-    image.blue=(int**)malloc(image.x *sizeof(int*));
-    for (int f = 0; f < image.x; f++) {
-        image.blue[f]=(int*)malloc(image.y *sizeof(int));
+    im.blue=(int**)malloc(im.x *sizeof(int*));
+    for (int f = 0; f < im.x; f++) {
+        im.blue[f]=(int*)malloc(im.y *sizeof(int));
     }
 
 //Récupératiion des pixel
-    for(int i=0; i<image.y; i++) {
-        for (int j = 0; j <image.x; j++) {
-            fscanf(file,"%d\n",&image.red[j][i]);
-            fscanf(file,"%d\n",&image.green[j][i]);
-            fscanf(file,"%d\n",&image.blue[j][i]);
+    for(int i=0; i<im.y; i++) {
+        for (int j = 0; j <im.x; j++) {
+            fscanf(file,"%d\n",&im.red[j][i]);
+            fscanf(file,"%d\n",&im.green[j][i]);
+            fscanf(file,"%d\n",&im.blue[j][i]);
         }
     }
 
@@ -66,13 +66,13 @@ printf("Entrez le x souhaité : \n");
 scanf("%d",&x);
 printf("Entrez le y souhaité : \n");
 scanf("%d",&y);
-printf("red = %d green = %d blue = %d\n",image.red[x][y],image.green[x][y],image.blue[x][y]);
+printf("red = %d green = %d blue = %d\n",im.red[x][y],im.green[x][y],im.blue[x][y]);
 
-    for(int i=0; i<image.y; i++) {
-        for (int j = 0; j <image.x; j++) {
-            printf("%d\n",image.red[j][i]);
-            printf("%d\n",image.green[j][i]);
-            printf("%d\n",image.blue[j][i]);
+    for(int i=0; i<im.y; i++) {
+        for (int j = 0; j <im.x; j++) {
+            printf("%d\n",im.red[j][i]);
+            printf("%d\n",im.green[j][i]);
+            printf("%d\n",im.blue[j][i]);
         }
     }
 */

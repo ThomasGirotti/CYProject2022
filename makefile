@@ -1,7 +1,7 @@
-main: import.o fonction.o main.o
-	gcc import.o fonction.o main.o -o main
-import.o: import.c fonction.h
-	gcc -c import.c -o import.o
+main: file.o fonction.o main.o
+	gcc file.o fonction.o main.o -o main
+file.o: file.c fonction.h
+	gcc -c file.c -o file.o
 fonction.o : fonction.c fonction.h
 	gcc -c fonction.c -o fonction.o
 main.o: main.c fonction.h

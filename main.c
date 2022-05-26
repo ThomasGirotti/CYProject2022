@@ -66,11 +66,20 @@ int main(int argc, char *argv[]) {
             case 'r':
                 printf("-r ENTERED\n");
                 break;
-            case 'x': //TODO : check if actio + 1 exists
+            case 'x':
                 actio = optind;
-                largeur = atoi(argv[actio-1]);
-                hauteur = atoi(argv[actio]);
-                epaisseur = atoi(argv[actio+1]);
+                printf("optind = %d\n", optind);
+                printf("optind = %d\n", optind);
+                printf("actio + 1 = %d\n", actio+1);
+                printf("argc = %d\n", argc);
+                if (actio + 1 >= argc) {
+                    printf("Erreur : l'option -x nécessite 3 arguments\nUtilisez l'argument -h pour afficher l'aide.\n");
+                    exit(4);
+                } else {
+                    largeur = atoi(argv[actio-1]);
+                    hauteur = atoi(argv[actio]);
+                    epaisseur = atoi(argv[actio+1]);
+                }
                 printf("-x ENTERED avec %d comme largeur, %d comme hauteur et %d comme epaisseur\n", largeur, hauteur, epaisseur);
                 break;
             case 's':

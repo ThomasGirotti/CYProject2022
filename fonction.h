@@ -13,7 +13,7 @@ typedef struct image{
 //Prototypage
 void importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
-
+void printimage(image* im);
 
 void binaire(image im,int seuil);
 int* histogramme(image im);

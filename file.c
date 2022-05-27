@@ -15,7 +15,7 @@ void importimage(char* inputname,image* im) {
 //Vérification de l'ouverture du fichier
     if (file == NULL) {
         printf("Erreur d'ouverture du fichier, veuillez vérifier le nom\nUtilisez l'argument -h pour afficher l'aide.\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
 //Vérification du format du fichier
@@ -23,7 +23,7 @@ void importimage(char* inputname,image* im) {
     printf("%s\n",laLigne); //? LOG
     if (strcmp(laLigne, "P3") != 0) {
         printf("Erreur : Le fichier n'est pas au format PPM P3\n");
-        exit(2);
+        exit(EXIT_FAILURE);
     }
 
 //Récupération de la résolution

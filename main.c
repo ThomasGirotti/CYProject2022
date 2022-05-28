@@ -148,7 +148,7 @@ int main(int argc, char *argv[]) {
         }
         if (actio > 0) {
             //Fonction création de la croix
-            croix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
+            //croix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
             printf("Croix crée !\n"); //? LOG
         }
     } else {
@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
     }
 
 //TODO : Fonction convolution
-
+/*
     if (cc > 0) {
         contraste(&im);
         printf("Renforcement de contraste effectué !\n"); //? LOG
@@ -230,7 +230,7 @@ int main(int argc, char *argv[]) {
         segmentation(&im);
         printf("Segmentation effectué !\n"); //? LOG
     }
-
+*/
     //Call output image (export ou affichage)
     if (output > 0) {
         exportimage(outputname,&im);

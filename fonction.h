@@ -22,7 +22,7 @@ void miroir(image* im);
 void negatif(image* im);
 void recadyna(image* im);
 void recadrage(image* im,int tab[255]);
-image rotate(image* im);
+void rotate(image* im);
 void transform_gris(image* im);
 
 #endif

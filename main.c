@@ -190,7 +190,7 @@ int main(int argc, char *argv[]) {
     }
 
 
-    convolution(&im); //? Appel ?
+    //convolution(&im); //? Appel ?
 
 /*
     if (cc > 0) {

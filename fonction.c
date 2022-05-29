@@ -22,7 +22,7 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution
-void convultion(image img, int** matrice) { //TODO : Réparer
+void convolution(image img, int** matrice) { //TODO : Réparer
     image img2;
     int compteur;
     for (int i=0;i<img.x;i++){

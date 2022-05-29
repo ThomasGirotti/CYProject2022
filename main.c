@@ -182,14 +182,16 @@ int main(int argc, char *argv[]) {
         printf("Negatif effectué !\n"); //? LOG
     }
 
-    histogramme(&im);
+    histogramme(&im); //? Appel ?
 
     if (rr > 0) {
         recadyna(&im);
         printf("Recadrage dynamique effectué !\n"); //? LOG
     }
 
-//TODO : Fonction convolution
+
+    convolution(&im); //? Appel ?
+
 /*
     if (cc > 0) {
         contraste(&im);

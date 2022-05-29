@@ -22,6 +22,21 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution
+void convultion(image img, int** matrice) { //TODO : Réparer
+    image img2;
+    int compteur;
+    for (int i=0;i<img.x;i++){
+        for (int j=0;j<img.y;j++){
+            compteur=0;
+            for (int k=0;k<2;k++){
+                for (int l=0;l<2;l++){
+                    compteur=compteur+matrice[k][l]*img*[i+k][j+l]; //! img doit etre un int
+                }
+            }
+        img2[i][j]=compteur; //! img2 est de type image / ne peut pas prendre de int
+        }
+    } 
+}
 
 //Fonction Histogramme
 int* histogramme(image* img) { //TODO : Check

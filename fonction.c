@@ -155,5 +155,3 @@ void transform_gris(image* im) { //* Fonction validée
 }
 
 
-
-/* wsh */

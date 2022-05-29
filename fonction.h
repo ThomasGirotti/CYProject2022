@@ -16,6 +16,7 @@ int exportimage(char* outputname,image* im);
 void printimage(image* im);
 
 void binaire(image* im,int seuil);
+void convultion(image img, int** matrice);
 int* histogramme(image* im);
 void miroir(image* im);
 void negatif(image* im);

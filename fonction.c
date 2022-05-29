@@ -145,23 +145,47 @@ void rotate(image* im) { //TODO : Refaire la fonction (segmentation fault)
     }
     for(int i=0; i<im->y; i++){
         for(int j=0; j<im->x; j++){
-            imrotate.red[i][j]=im->red[j][im->x-i-1];
-            imrotate.green[i][j]=im->green[j][im->x-i-1];
-            imrotate.blue[i][j]=im->blue[j][im->x-i-1];
+            imrotate.red[i][j]=im->red[j][im->x-i];
+            imrotate.green[i][j]=im->green[j][im->x-i];
+            imrotate.blue[i][j]=im->blue[j][im->x-i];
         }
     }
-    printf("%d %d", imrotate.red[0][0], im->red[0][0]);
-    im->x = imrotate.x;
-    im->y = imrotate.y;
-    for(int i=0; i<im->x; i++){
-        for(int j=0; j<im->y; j++){
+    
+
+    im->red = realloc(im->red, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->red[g] = realloc(im->red[g], im->x *sizeof(int));
+    }   
+    im->green = realloc(im->green, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+       im->green[g] = realloc(im->green[g], im->x *sizeof(int));
+    }
+    im->blue = realloc(im->blue, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+      im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
+    }
+
+    if (im->x==im->y){
+    
+        for(int i=0; i<im->y; i++){
+         for(int j=0; j<im->x; j++){
+            im->red[i][j]=imrotate.red[i][j];
+            im->green[i][j]=imrotate.green[i][j];
+            im->blue[i][j]=imrotate.blue[i][j];
+        }
+    }
+    } else {
+    im->y=imrotate.y;
+    im->x=imrotate.x;
+        for(int i=0; i<=im->y; i++){
+         for(int j=0; j<=im->x; j++){
             im->red[i][j]=imrotate.red[i][j];
             im->green[i][j]=imrotate.green[i][j];
             im->blue[i][j]=imrotate.blue[i][j];
         }
     }
 }
-
+}
 
 //Fonction Transform_gris
 void transform_gris(image* im) { //* Fonction validée

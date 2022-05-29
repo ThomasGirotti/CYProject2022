@@ -127,18 +127,39 @@ void recadrage(image* img,int tab[255]) { //? Utilité de la fonction ?
 }
 
 //Fonction Rotate
-image rotate(image* im) { //TODO : Refaire la fonction (segmentation fault)
+void rotate(image* im) { //TODO : Refaire la fonction (segmentation fault)
     image imrotate;
     imrotate.x = im->y;
     imrotate.y = im->x;
-    for(int i=0; i<=im->y; i++){
-        for(int j=0; j<=im->x; j++){
-            imrotate.red[i][j]=im->red[im->y-i][j];
-            imrotate.green[i][j]=im->green[im->y-i][j];
-            imrotate.blue[i][j]=im->blue[im->y-i][j];
+    imrotate.red=malloc(sizeof(int*)*imrotate.x);
+    for(int i=0; i<imrotate.x; i++){
+       imrotate.red[i]=malloc(sizeof(int)*imrotate.y); 
+    }
+    imrotate.blue=malloc(sizeof(int*)*imrotate.x);
+    for(int i=0; i<imrotate.x; i++){
+       imrotate.blue[i]=malloc(sizeof(int)*imrotate.y); 
+    }
+    imrotate.green=malloc(sizeof(int*)*imrotate.x);
+    for(int i=0; i<imrotate.x; i++){
+       imrotate.green[i]=malloc(sizeof(int)*imrotate.y); 
+    }
+    for(int i=0; i<im->y; i++){
+        for(int j=0; j<im->x; j++){
+            imrotate.red[i][j]=im->red[j][im->x-i-1];
+            imrotate.green[i][j]=im->green[j][im->x-i-1];
+            imrotate.blue[i][j]=im->blue[j][im->x-i-1];
         }
     }
-    return imrotate;
+    printf("%d %d", imrotate.red[0][0], im->red[0][0]);
+    im->x = imrotate.x;
+    im->y = imrotate.y;
+    for(int i=0; i<im->x; i++){
+        for(int j=0; j<im->y; j++){
+            im->red[i][j]=imrotate.red[i][j];
+            im->green[i][j]=imrotate.green[i][j];
+            im->blue[i][j]=imrotate.blue[i][j];
+        }
+    }
 }
 
 

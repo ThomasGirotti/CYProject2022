@@ -133,15 +133,15 @@ void rotate(image* im) { //TODO : Refaire la fonction (segmentation fault)
     imrotate.y = im->x;
     imrotate.red=malloc(sizeof(int*)*imrotate.x);
     for(int i=0; i<imrotate.x; i++){
-       imrotate.red[i]=malloc(sizeof(int)*imrotate.y); 
+        imrotate.red[i]=malloc(sizeof(int)*imrotate.y); 
     }
     imrotate.blue=malloc(sizeof(int*)*imrotate.x);
     for(int i=0; i<imrotate.x; i++){
-       imrotate.blue[i]=malloc(sizeof(int)*imrotate.y); 
+        imrotate.blue[i]=malloc(sizeof(int)*imrotate.y); 
     }
     imrotate.green=malloc(sizeof(int*)*imrotate.x);
     for(int i=0; i<imrotate.x; i++){
-       imrotate.green[i]=malloc(sizeof(int)*imrotate.y); 
+        imrotate.green[i]=malloc(sizeof(int)*imrotate.y); 
     }
     for(int i=0; i<im->y; i++) {
         for(int j=0; j<im->x; j++) {

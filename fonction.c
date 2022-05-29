@@ -127,7 +127,7 @@ void recadrage(image* img,int tab[255]) { //? Utilité de la fonction ?
 }
 
 //Fonction Rotate
-void rotate(image* im) { //* Fonction validée
+void rotate(image* im) { //TODO : reste une colone noir à gauche quand image carrée
     image imrotate;
     imrotate.x = im->y;
     imrotate.y = im->x;

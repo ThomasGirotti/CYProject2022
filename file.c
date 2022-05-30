@@ -5,7 +5,7 @@
 
 void importimage(char* inputname,image* im) {
 
-    char laLigne[2];
+    char laLigne[10];
     FILE* file = NULL;
 
 //Ouverture du fichier

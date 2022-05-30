@@ -153,9 +153,9 @@ void rotate(image* im) { //TODO : reste une colone noir à gauche quand image ca
     }
     for(int i=0; i<im->y; i++) {
         for(int j=0; j<im->x; j++) {
-            imrotate.red[i][j]=im->red[j][im->x-i];
-            imrotate.green[i][j]=im->green[j][im->x-i];
-            imrotate.blue[i][j]=im->blue[j][im->x-i];
+            imrotate.red[i][j]=im->red[j][im->x-i-1];
+            imrotate.green[i][j]=im->green[j][im->x-i-1];
+            imrotate.blue[i][j]=im->blue[j][im->x-i-1];
         }
     }
     im->red = realloc(im->red, im->y *sizeof(int*));
@@ -189,6 +189,21 @@ void rotate(image* im) { //TODO : reste une colone noir à gauche quand image ca
             }
         }
     }
+        for(int i=0; i<imrotate.x; i++){
+         free(imrotate.red[i]);
+    }
+        for(int i=0; i<imrotate.x; i++){
+          free(imrotate.blue[i]);
+    }
+        for(int i=0; i<imrotate.x; i++){
+         free(imrotate.green[i]);
+    }
+    free(imrotate.red);
+    free(imrotate.blue);
+    free(imrotate.green);
+    imrotate.red = NULL;
+    imrotate.blue = NULL;
+    imrotate.green = NULL;
 }
 
 //Fonction Transform_gris

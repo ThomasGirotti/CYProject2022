@@ -65,24 +65,46 @@ int* histogramme(image* img) { //TODO : Check
 
 //Fonction Mirroir
 void miroir(image* im) { //TODO : Refaire la fonction (renvoie l'image sans modification)
-    int pixel_red=0;
-    int pixel_green=0;
-    int pixel_blue=0;
-    for(int i=0; i<im->x;i++){ // On balaie les lignes
-        for(int j=0; j<im->y/2;j++){ // On balaie les colonnes //! y impair ne fonctionne pas
-            pixel_red=im->red[i][j]; // On stock les valeurs
-            pixel_green=im->green[i][j];
-            pixel_blue=im->blue[i][j];
-            im->red[i][j]=im->red[i][im->y-j]; // On met la partie de droite à gauche    
-            im->green[i][j]=im->green[i][im->y-j];       
-            im->blue[i][j]=im->blue[i][im->y-j];
-            im->red[i][j]=pixel_red;  // On met la partie de gauche (stocké) à droite
-            im->green[i][j]=pixel_green;      
-            im->blue[i][j]=pixel_blue;
-        }
-    }  
-}
+      int pixel_red=0;
+  int pixel_green=0;
+  int pixel_blue=0;
+  int x=im->x;
+  int y=im->y;
+  /*image* im2;
+  image
+  im2->red=(int**)malloc(im2->x *sizeof(int*));
+  for (int g = 0; g < im->x; g++) {
+      im2->red[g]=(int*)malloc(im->y *sizeof(int));
+  }
+  im->green=(int**)malloc(im->x *sizeof(int*));
+  for (int h = 0; h < im->x; h++) {
+      im2->green[h]=(int*)malloc(im->y *sizeof(int));
+  }
+  im->blue=(int**)malloc(im->x *sizeof(int*));
+  for (int f = 0; f < im->x; f++) {
+      im2->blue[f]=(int*)malloc(im->y *sizeof(int));
+  }*/
 
+  for(int i=0; i<im->x-1;i++){ // On balaie les lignes
+      for(int j=0; j<im->y-1;j++){ // On balaie les colonnes //! y impair ne fonctionne pas
+          //im2->red[i][j]=im->red[(im->x)-i][(im->y)-j]
+
+
+          pixel_red=im->red[i][j]; // On stock les valeurs
+          pixel_green=im->green[i][j];
+          pixel_blue=im->blue[i][j];
+          im->red[i][j]=im->green[x-i][j]; // On met la partie de droite à gauche
+          im->green[i][j]=im->green[x-i][j];
+          im->blue[i][j]=im->blue[x-i][j];
+          im->red[x-i][j]=pixel_red;  // On met la partie de gauche (stocké) à droite
+          im->green[x-i][j]=pixel_green;
+          im->blue[x-i][j]=pixel_blue;
+
+
+      }
+  }
+}    
+    
 //Fonction Negatif
 void negatif(image* im) { //* Fonction validée
     for(int i=0; i<im->x;i++){ // On balaie les lignes

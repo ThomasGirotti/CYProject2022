@@ -25,18 +25,26 @@ void binaire(image* im,int seuil) { //* Fonction validée
 /*
 void convolution(image img, int** matrice) { //TODO : Réparer
     image img2;
-    int compteur;
+    int compteur_red;
+    int compteur_green;
+    int compteur_blue;
     for (int i=0;i<img.x;i++){
         for (int j=0;j<img.y;j++){
-            compteur=0;
+            compteur_red=0;
+            compteur_green=0;
+            compteur_blue=0;
             for (int k=0;k<2;k++){
                 for (int l=0;l<2;l++){
-                    compteur=compteur+matrice[k][l]*img*[i+k][j+l]; //! img doit etre un int
+                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k][j+l]; //! img doit etre un int
+                    compteur_green=compteur_green+matrice[k][l]*img->green[i+k][j+l];
+                    compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k][j+l];
                 }
             }
-        img2[i][j]=compteur; //! img2 est de type image / ne peut pas prendre de int
+        img2->red[i][j]=compteur_red; //! img2 est de type image / ne peut pas prendre de int
+        img2->gree[i][j]=compteur_green;
+        img2->blue[i][j]=compteur_blue;
         }
-    } 
+    }
 }*/
 
 //Fonction Histogramme

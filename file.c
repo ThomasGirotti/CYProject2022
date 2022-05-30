@@ -19,7 +19,8 @@ void importimage(char* inputname,image* im) {
     }
 
 //Vérification du format du fichier
-    fscanf(file,"%s\n",laLigne);
+    fgets(laLigne,10,file);
+    sscanf(laLigne,"%s",laLigne);
     printf("%s\n",laLigne); //? LOG
     if (strcmp(laLigne, "P3") != 0) {
         printf("Erreur : Le fichier n'est pas au format PPM P3\n");

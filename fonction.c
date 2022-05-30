@@ -122,18 +122,6 @@ void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
     }
 }
 
-
-//Fonction Recadrage
-void recadrage(image* img,int tab[255]) { //? Utilité de la fonction ?
-    int x;
-    int y;
-    x=img->x;
-    y=img->y;
-
-
-
-}
-
 //Fonction Rotate
 void rotate(image* im) { //TODO : reste une colone noir à gauche quand image carrée
     image imrotate;

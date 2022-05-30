@@ -145,7 +145,7 @@ void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
 }
 
 //Fonction Rotate
-void rotate(image* im) { //TODO : reste une colone noir à gauche quand image carrée
+void rotate(image* im) { //TODO : reste une colone noir à droite quand image rectangle + manque une ligne à gauche
     image imrotate;
     imrotate.x = im->y;
     imrotate.y = im->x;
@@ -174,11 +174,11 @@ void rotate(image* im) { //TODO : reste une colone noir à gauche quand image ca
     }   
     im->green = realloc(im->green, im->y *sizeof(int*));
     for (int g = 0; g < im->y; g++) {
-       im->green[g] = realloc(im->green[g], im->x *sizeof(int));
+        im->green[g] = realloc(im->green[g], im->x *sizeof(int));
     }
     im->blue = realloc(im->blue, im->y *sizeof(int*));
     for (int g = 0; g < im->y; g++) {
-      im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
+        im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
     }
     if (im->x==im->y) {
         for(int i=0; i<im->y; i++) {
@@ -199,14 +199,14 @@ void rotate(image* im) { //TODO : reste une colone noir à gauche quand image ca
             }
         }
     }
-        for(int i=0; i<imrotate.x; i++){
-         free(imrotate.red[i]);
+    for(int i=0; i<imrotate.x; i++) {
+        free(imrotate.red[i]);
     }
-        for(int i=0; i<imrotate.x; i++){
-          free(imrotate.blue[i]);
+    for(int i=0; i<imrotate.x; i++) {
+        free(imrotate.blue[i]);
     }
-        for(int i=0; i<imrotate.x; i++){
-         free(imrotate.green[i]);
+    for(int i=0; i<imrotate.x; i++) {
+        free(imrotate.green[i]);
     }
     free(imrotate.red);
     free(imrotate.blue);
@@ -228,5 +228,3 @@ void transform_gris(image* im) { //* Fonction validée
         }
     }  
 }
-
-

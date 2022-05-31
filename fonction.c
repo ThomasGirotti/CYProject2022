@@ -5,58 +5,53 @@
 
 //Fonction Binarisation
 void binaire(image* im,int seuil) { //* Fonction validée
-    for(int i=0; i<im->y;i++){ // on balaie les lignes
-        for(int j=0; j<im->x;j++){ // on balaie les colonnes
+    for(int i=0; i<im->x;i++) { // on balaie les lignes
+        for(int j=0; j<im->y;j++) { // on balaie les colonnes
             if (((im->red[i][j]+im->green[i][j]+im->blue[i][j])/3)<seuil) {
-            im->red[i][j]=0; // transforme le rouge dans la bonne teinte
-            im->green[i][j]=0; // transforme le vert dans la bonne teinte
-            im->blue[i][j]=0; // transforme le bleu dans la bonne teinte
+                im->red[i][j]=0; // transforme le rouge dans la bonne teinte
+                im->green[i][j]=0; // transforme le vert dans la bonne teinte
+                im->blue[i][j]=0; // transforme le bleu dans la bonne teinte
             } else {
-            im->red[i][j]=im->maxvalue; // transforme le rouge dans la bonne teinte
-            im->green[i][j]=im->maxvalue; // transforme le vert dans la bonne teinte
-            im->blue[i][j]=im->maxvalue; // transforme le bleu dans la bonne teinte   
+                im->red[i][j]=im->maxvalue; // transforme le rouge dans la bonne teinte
+                im->green[i][j]=im->maxvalue; // transforme le vert dans la bonne teinte
+                im->blue[i][j]=im->maxvalue; // transforme le bleu dans la bonne teinte   
             }
         }
     }  
 }
 
 //Fonction Convolution 
-void convolution(image* img, int** matrice,image* img2) { //TODO : Réparer
-
+void convolution(image* img, int** matrice,image* img2) { //*Fonction validée
     int compteur_red;
     int compteur_green;
     int compteur_blue;
-    for (int i=0;i<(img->x)-2;i++){
-        for (int j=0;j<(img->y)-2;j++){
+    for (int i=0;i<(img->x)-2;i++) {
+        for (int j=0;j<(img->y)-2;j++) {
             compteur_red=0;
             compteur_green=0;
             compteur_blue=0;
-            for (int k=0;k<3;k++){
+            for (int k=0;k<3;k++) {
                 for (int l=0;l<3;l++){
-                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k][j+l]; //! img doit etre un int
+                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k][j+l];
                     compteur_green=compteur_green+matrice[k][l]*img->green[i+k][j+l];
                     compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k][j+l];
                 }
             }
-            if (compteur_red>0){
-              img2->red[i][j]=compteur_red;
+            if (compteur_red>0) {
+                img2->red[i][j]=compteur_red;
+            } else {
+                img2->red[i][j]=-compteur_red;
             }
-            else{
-              img2->red[i][j]=-compteur_red;
+            if (compteur_green>0) {
+                img2->green[i][j]=compteur_green;
+            } else {
+                img2->green[i][j]=-compteur_green;
             }
-            if (compteur_green>0){
-              img2->green[i][j]=compteur_green;
+            if (compteur_blue>0) {
+                img2->blue[i][j]=compteur_blue;
+            } else {
+                img2->blue[i][j]=-compteur_blue;
             }
-            else{
-              img2->green[i][j]=-compteur_green;
-            }
-            if (compteur_blue>0){
-              img2->blue[i][j]=compteur_blue;
-            }
-            else{
-              img2->blue[i][j]=-compteur_blue;
-            }
-             //! img2 est de type image / ne peut pas prendre de int
         }
     }
     for(int d=0; d<(img->x)-2;d++){ // On balaie les lignes
@@ -69,47 +64,45 @@ void convolution(image* img, int** matrice,image* img2) { //TODO : Réparer
 
 }
 
-void contraste(image* img){
-  int** matrice;
-  image img2;
-  img2.x=img->x;
-  img2.y=img->y;
-  img2.red=(int**)malloc(img->x *sizeof(int*));
-  for (int g = 0; g < img->x; g++) {
-      img2.red[g]=(int*)malloc(img->y *sizeof(int));
-  }
-  img2.green=(int**)malloc(img->x *sizeof(int*));
-  for (int h = 0; h < img->x; h++) {
-      img2.green[h]=(int*)malloc(img->y *sizeof(int));
-  }
-  img2.blue=(int**)malloc(img->x *sizeof(int*));
-  for (int f = 0; f < img->x; f++) {
-      img2.blue[f]=(int*)malloc(img->y *sizeof(int));
-  }
-  matrice=(int**)malloc(3 *sizeof(int*));
-  for (int i = 0; i < 3; i++) {
-      matrice[i]=(int*)malloc(3 *sizeof(int));
+void contraste(image* img) { //*Fonction validée
+    int** matrice;
+    image img2;
+    img2.x=img->x;
+    img2.y=img->y;
+    img2.red=(int**)malloc(img->x *sizeof(int*));
+    for (int g = 0; g < img->x; g++) {
+        img2.red[g]=(int*)malloc(img->y *sizeof(int));
     }
-  matrice[0][0]=0;
-  matrice[0][1]=-1;
-  matrice[0][2]=0;
-  matrice[1][0]=-1;
-  matrice[1][1]=5;
-  matrice[1][2]=-1;
-  matrice[2][0]=0;
-  matrice[2][1]=-1;
-  matrice[2][2]=0;
-  convolution(img,matrice,&img2);
-  for (int i = 0; i < 3; i++) {
-      free(matrice[i]);
-  }
-  free(matrice);
-
-
+    img2.green=(int**)malloc(img->x *sizeof(int*));
+    for (int h = 0; h < img->x; h++) {
+        img2.green[h]=(int*)malloc(img->y *sizeof(int));
+    }
+    img2.blue=(int**)malloc(img->x *sizeof(int*));
+    for (int f = 0; f < img->x; f++) {
+        img2.blue[f]=(int*)malloc(img->y *sizeof(int));
+    }
+    matrice=(int**)malloc(3 *sizeof(int*));
+    for (int i = 0; i < 3; i++) {
+        matrice[i]=(int*)malloc(3 *sizeof(int));
+    }
+    matrice[0][0]=0;
+    matrice[0][1]=-1;
+    matrice[0][2]=0;
+    matrice[1][0]=-1;
+    matrice[1][1]=5;
+    matrice[1][2]=-1;
+    matrice[2][0]=0;
+    matrice[2][1]=-1;
+    matrice[2][2]=0;
+    convolution(img,matrice,&img2);
+    for (int i = 0; i < 3; i++) {
+        free(matrice[i]);
+    }
+    free(matrice);
 }
 
 //Fonction Histogramme
-int* histogramme(image* img) { //TODO : Check
+int* histogramme(image* img) { //* Fonction validée
     int* tab;
     int x;
     int y;
@@ -125,28 +118,28 @@ int* histogramme(image* img) { //TODO : Check
 }
 
 //Fonction Mirroir
-void miroir(image* im) { //TODO : voir les cas impair
-  int pixel=0;
-  int pixel_red=0;
-  int pixel_green=0;
-  int pixel_blue=0;
-  int x=im->x;
-  int y=im->y;
-  for(int i=0; i<(im->x)/2;i++){ // On balaie les lignes
-      for(int j=0; j<im->y;j++){ // On balaie les colonnes
-          pixel_red=im->red[i][j]; // Transforme le rouge dans la bonne teinte
-          pixel_blue=im->blue[i][j]; // Transforme le vert dans la bonne teinte
-          pixel_green=im->green[i][j]; // Transforme le bleu dans la bonne teinte
-          im->red[i][j]=im->red[x-1-i][j];
-          im->green[i][j]=im->green[x-1-i][j];
-          im->blue[i][j]=im->blue[x-1-i][j];
-          im->red[x-1-i][j]=pixel_red;
-          im->blue[x-1-i][j]=pixel_blue;
-          im->green[x-1-i][j]=pixel_green;
-      }
-  }
+void miroir(image* im) { //* Fonction validée
+    int pixel=0;
+    int pixel_red=0;
+    int pixel_green=0;
+    int pixel_blue=0;
+    int x=im->x;
+    int y=im->y;
+    for(int i=0; i<(im->x)/2;i++) { // On balaie les lignes
+        for(int j=0; j<im->y;j++) { // On balaie les colonnes
+            pixel_red=im->red[i][j];
+            pixel_blue=im->blue[i][j];
+            pixel_green=im->green[i][j];
+            im->red[i][j]=im->red[x-1-i][j];
+            im->green[i][j]=im->green[x-1-i][j];
+            im->blue[i][j]=im->blue[x-1-i][j];
+            im->red[x-1-i][j]=pixel_red;
+            im->blue[x-1-i][j]=pixel_blue;
+            im->green[x-1-i][j]=pixel_green;
+        }
+    }
 }
-    
+
 //Fonction Negatif
 void negatif(image* im) { //* Fonction validée
     for(int i=0; i<im->x;i++){ // On balaie les lignes
@@ -159,7 +152,7 @@ void negatif(image* im) { //* Fonction validée
 }
 
 //Fonction Recadrage_dyna
-void recadyna(image* im) { //less go ça marche
+void recadyna(image* im) { //* Fonction validée
     float del;
     int* tab;
     int maxl;
@@ -170,27 +163,25 @@ void recadyna(image* im) { //less go ça marche
     transform_gris(im);
     tab = histogramme(im);
     v=0;
-    while(v==0){
-      if (tab[w]==0){
-        w=w+1;
-      } else {
-        v=1;
-      }
+    while(v==0) {
+        if (tab[w]==0){
+            w=w+1;
+        } else {
+            v=1;
+        }
     }
     minl=w;
     v=0;
     w=255;
-
-    while(v==0){
-      if (tab[w]==0){
-        w=w-1;
-      } else {
-        v=1;
-      }
+    while(v==0) {
+        if (tab[w]==0){
+            w=w-1;
+        } else {
+            v=1;
+        }
     }
     maxl=w;
     printf("%d %d \n", maxl, minl);
-
     del = (float)255/(maxl-minl);
     printf ("%f", del);
     for (int i = 0; i < im->x; i++) {
@@ -203,7 +194,7 @@ void recadyna(image* im) { //less go ça marche
 }
 
 //Fonction Rotate
-void rotate(image* im) { //TODO : reste une colone noir à droite quand image rectangle + manque une ligne à gauche
+void rotate(image* im) { //! 256 * 255 ne fonctionne pas (mais 255 * 256 fonctionne)
     image imrotate;
     imrotate.x = im->y;
     imrotate.y = im->x;

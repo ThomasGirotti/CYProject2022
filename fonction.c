@@ -97,33 +97,45 @@ void negatif(image* im) { //* Fonction validée
 }
 
 //Fonction Recadrage_dyna
-void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
-    int del;
+void recadyna(image* im) { //less go ça marche
+    float del;
     int* tab;
-    int max;
-    int min;
-    tab = (int*)malloc(im->maxvalue*sizeof(int));
+    int maxl;
+    int minl;
+    int v, w;
+    w=0;
+    tab = (int*)malloc(255*sizeof(int));
     transform_gris(im);
     tab = histogramme(im);
-    for(int i=0; i<im->maxvalue; i++){
-      printf("%d \n", tab[i]);
+    v=0;
+    while(v==0){
+      if (tab[w]==0){
+        w=w+1;
+      } else {
+        v=1;
+      }
     }
-    max = tab[0];
-    min = tab[0];
-    for (int i = 0; i < im->maxvalue; i++) {
-        if (tab[i]<min){
-            min=tab[i];
-        }
-        if (tab[i]>max){
-        max=tab[i];
-        }
+    minl=w;
+    v=0;
+    w=255;
+
+    while(v==0){
+      if (tab[w]==0){
+        w=w-1;
+      } else {
+        v=1;
+      }
     }
-    del = im->maxvalue/(max-min); //! Floating point exception
+    maxl=w;
+    printf("%d %d \n", maxl, minl);
+
+    del = (float)255/(maxl-minl);
+    printf ("%f", del);
     for (int i = 0; i < im->x; i++) {
         for (int j=0; j<im->y;j++){
-            //im->red[i][y]=(im->red[i][y]-min)*del; //! replace y
-            //im->green[i][y]=(im->green[i][y]-min)*del; //! replace y
-            //im->blue[i][y]=(im->blue[i][y]-min)*del; //! replace y
+            im->red[i][j]= (im->red[i][j]-minl)*del;
+            im->green[i][j]= (im->green[i][j]-minl)*del;
+            im->blue[i][j]= (im->blue[i][j]-minl)*del;
         }
     }
 }

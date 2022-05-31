@@ -57,7 +57,7 @@ int* histogramme(image* img) { //TODO : Check
     y=img->y;
     for(int i=0; i<x;i++){ // on balaie les lignes
         for(int j=0; j<y;j++){ // on balaie les colonnes
-            tab[img->red[i][j]]=+1;
+            tab[img->red[i][j]]++;
         }
     }
     return tab;

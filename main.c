@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
         printf("Niveau de gris effectué !\n"); //? LOG
     }
 
-    if (bb > 0) {
+    if (bb > 0) { //TODO : ADD verif for binaryseuil
         binaire(&im,binaryseuil);
         printf("Binarisation effectuée !\n"); //? LOG
     }
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
         printf("Miroir effectué !\n"); //? LOG
     }
 
-    if (pp > 0) { //! Revoir la méthode de call
+    if (pp > 0) {
         rotate(&im);
         printf("Rotation effectuée !\n"); //? LOG
     }
@@ -182,22 +182,16 @@ int main(int argc, char *argv[]) {
         printf("Negatif effectué !\n"); //? LOG
     }
 
-    histogramme(&im); //? Appel ?
-
     if (rr > 0) {
         recadyna(&im);
         printf("Recadrage dynamique effectué !\n"); //? LOG
     }
 
-
-    //convolution(&im); //? Appel ?
-
-/*
     if (cc > 0) {
         contraste(&im);
         printf("Renforcement de contraste effectué !\n"); //? LOG
     }
-
+/*
     if (ff > 0) {
         flou(&im);
         printf("Flou effectué !\n"); //? LOG
@@ -242,8 +236,3 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
-
-//! dernier exemple pas de -x ?
-//! pas d'option pour lancer mirroir et négatif ? (-m et -n non présent)
-//! Histogramme à chaque call ??
-//TODO : refaire les fonctions pour etre en pointeur

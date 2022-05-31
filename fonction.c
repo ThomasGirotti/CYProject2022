@@ -21,30 +21,92 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution 
-/*
-void convolution(image img, int** matrice) { //TODO : Réparer
-    image img2;
+void convolution(image* img, int** matrice,image* img2) { //TODO : Réparer
+
     int compteur_red;
     int compteur_green;
     int compteur_blue;
-    for (int i=0;i<img.x;i++){
-        for (int j=0;j<img.y;j++){
+    for (int i=0;i<(img->x)-2;i++){
+        for (int j=0;j<(img->y)-2;j++){
             compteur_red=0;
             compteur_green=0;
             compteur_blue=0;
-            for (int k=0;k<2;k++){
-                for (int l=0;l<2;l++){
+            for (int k=0;k<3;k++){
+                for (int l=0;l<3;l++){
                     compteur_red=compteur_red+matrice[k][l]*img->red[i+k][j+l]; //! img doit etre un int
                     compteur_green=compteur_green+matrice[k][l]*img->green[i+k][j+l];
                     compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k][j+l];
                 }
             }
-        img2->red[i][j]=compteur_red; //! img2 est de type image / ne peut pas prendre de int
-        img2->gree[i][j]=compteur_green;
-        img2->blue[i][j]=compteur_blue;
+            if (compteur_red>0){
+              img2->red[i][j]=compteur_red;
+            }
+            else{
+              img2->red[i][j]=-compteur_red;
+            }
+            if (compteur_green>0){
+              img2->green[i][j]=compteur_green;
+            }
+            else{
+              img2->green[i][j]=-compteur_green;
+            }
+            if (compteur_blue>0){
+              img2->blue[i][j]=compteur_blue;
+            }
+            else{
+              img2->blue[i][j]=-compteur_blue;
+            }
+             //! img2 est de type image / ne peut pas prendre de int
         }
     }
-}*/
+    for(int d=0; d<(img->x)-2;d++){ // On balaie les lignes
+        for(int e=0; e<(img->y)-2;e++){ // On balaie les colonnes
+            img->red[d][e]=img2->red[d][e];
+            img->blue[d][e]=img2->blue[d][e];
+            img->green[d][e]=img2->green[d][e];
+        }
+    }
+
+}
+
+void contraste(image* img){
+  int** matrice;
+  image img2;
+  img2.x=img->x;
+  img2.y=img->y;
+  img2.red=(int**)malloc(img->x *sizeof(int*));
+  for (int g = 0; g < img->x; g++) {
+      img2.red[g]=(int*)malloc(img->y *sizeof(int));
+  }
+  img2.green=(int**)malloc(img->x *sizeof(int*));
+  for (int h = 0; h < img->x; h++) {
+      img2.green[h]=(int*)malloc(img->y *sizeof(int));
+  }
+  img2.blue=(int**)malloc(img->x *sizeof(int*));
+  for (int f = 0; f < img->x; f++) {
+      img2.blue[f]=(int*)malloc(img->y *sizeof(int));
+  }
+  matrice=(int**)malloc(3 *sizeof(int*));
+  for (int i = 0; i < 3; i++) {
+      matrice[i]=(int*)malloc(3 *sizeof(int));
+    }
+  matrice[0][0]=0;
+  matrice[0][1]=-1;
+  matrice[0][2]=0;
+  matrice[1][0]=-1;
+  matrice[1][1]=5;
+  matrice[1][2]=-1;
+  matrice[2][0]=0;
+  matrice[2][1]=-1;
+  matrice[2][2]=0;
+  convolution(img,matrice,&img2);
+  for (int i = 0; i < 3; i++) {
+      free(matrice[i]);
+  }
+  free(matrice);
+
+
+}
 
 //Fonction Histogramme
 int* histogramme(image* img) { //TODO : Check

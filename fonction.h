@@ -18,7 +18,7 @@ void printimage(image* im);
 void binaire(image* im,int seuil);
 void contraste(image* img);
 void convolution(image* img, int** matrice,image* img2);
-int* histogramme(image* im);
+void histogramme(image* im,int* tab);
 void miroir(image* im);
 void negatif(image* im);
 void recadyna(image* im);

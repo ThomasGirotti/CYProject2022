@@ -102,19 +102,19 @@ void contraste(image* img) { //*Fonction validée
 }
 
 //Fonction Histogramme
-int* histogramme(image* img) { //* Fonction validée
-    int* tab;
+void histogramme(image* img,int* tab) { //* Fonction validée
     int x;
     int y;
-    tab = malloc(img->maxvalue*sizeof(int)); //? : Remplacer 255 par maxvalue ?
     x=img->x;
     y=img->y;
+    for(int i=0; i<img->maxvalue;i++){ // on balaie les colonnes
+            tab[i]=0;
+        }
     for(int i=0; i<x;i++){ // on balaie les lignes
         for(int j=0; j<y;j++){ // on balaie les colonnes
             tab[img->red[i][j]]++;
         }
     }
-    return tab;
 }
 
 //Fonction Mirroir
@@ -157,12 +157,10 @@ void recadyna(image* im) { //* Fonction validée
     int* tab;
     int maxl;
     int minl;
-    int v, w;
-    w=0;
-    tab = (int*)malloc(255*sizeof(int));
+    int v=0, w=0, z=0;
+    tab = malloc(im->maxvalue*sizeof(int));
     transform_gris(im);
-    tab = histogramme(im);
-    v=0;
+    histogramme(im,tab);
     while(v==0) {
         if (tab[w]==0){
             w=w+1;
@@ -172,18 +170,18 @@ void recadyna(image* im) { //* Fonction validée
     }
     minl=w;
     v=0;
-    w=255;
+    z=im->maxvalue;
     while(v==0) {
-        if (tab[w]==0){
-            w=w-1;
+        if (tab[z]==0){
+            z=z-1;
         } else {
             v=1;
         }
     }
-    maxl=w;
+    maxl=z;
     printf("%d %d \n", maxl, minl);
     del = (float)255/(maxl-minl);
-    printf ("%f", del);
+    printf ("%f\n", del);
     for (int i = 0; i < im->x; i++) {
         for (int j=0; j<im->y;j++){
             im->red[i][j]= (im->red[i][j]-minl)*del;
@@ -274,6 +272,7 @@ void transform_gris(image* im) { //* Fonction validée
             im->red[i][j]=pixel; // Transforme le rouge dans la bonne teinte
             im->green[i][j]=pixel; // Transforme le vert dans la bonne teinte
             im->blue[i][j]=pixel; // Transforme le bleu dans la bonne teinte
+            
         }
-    }  
+    }
 }

@@ -16,12 +16,12 @@ int exportimage(char* outputname,image* im);
 void printimage(image* im);
 
 void binaire(image* im,int seuil);
-void convolution(image img, int** matrice);
+void contraste(image* img);
+void convolution(image* img, int** matrice,image* img2);
 int* histogramme(image* im);
 void miroir(image* im);
 void negatif(image* im);
 void recadyna(image* im);
-void recadrage(image* im,int tab[255]);
 void rotate(image* im);
 void transform_gris(image* im);
 

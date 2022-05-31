@@ -5,7 +5,6 @@
 
 //Fonction Binarisation
 void binaire(image* im,int seuil) { //* Fonction validée
-    int pixel=0;
     for(int i=0; i<im->y;i++){ // on balaie les lignes
         for(int j=0; j<im->x;j++){ // on balaie les colonnes
             if (((im->red[i][j]+im->green[i][j]+im->blue[i][j])/3)<seuil) {
@@ -52,7 +51,7 @@ int* histogramme(image* img) { //TODO : Check
     int* tab;
     int x;
     int y;
-    tab = malloc(255*sizeof(int)); //? : Remplacer 255 par maxvalue ?
+    tab = malloc(img->maxvalue*sizeof(int)); //? : Remplacer 255 par maxvalue ?
     x=img->x;
     y=img->y;
     for(int i=0; i<x;i++){ // on balaie les lignes
@@ -103,15 +102,15 @@ void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
     int* tab;
     int max;
     int min;
-    tab = (int*)malloc(255*sizeof(int));
+    tab = (int*)malloc(im->maxvalue*sizeof(int));
     transform_gris(im);
     tab = histogramme(im);
-    for(int i=0; i<255; i++){
+    for(int i=0; i<im->maxvalue; i++){
       printf("%d \n", tab[i]);
     }
     max = tab[0];
     min = tab[0];
-    for (int i = 0; i < 255; i++) {
+    for (int i = 0; i < im->maxvalue; i++) {
         if (tab[i]<min){
             min=tab[i];
         }
@@ -119,7 +118,7 @@ void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
         max=tab[i];
         }
     }
-    del = 255/(max-min); //! Floating point exception
+    del = im->maxvalue/(max-min); //! Floating point exception
     for (int i = 0; i < im->x; i++) {
         for (int j=0; j<im->y;j++){
             //im->red[i][y]=(im->red[i][y]-min)*del; //! replace y

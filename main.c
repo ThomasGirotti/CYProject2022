@@ -45,29 +45,29 @@ int main(int argc, char *argv[]) {
                 printf("Bienvenue dans l'aide de ce programme\n");
                 printf("Ce programme permet de faire des traitements sur une image\n\n");
                 printf("APPEL :\n");
-                printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n"); 
-                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n"); 
-                printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n"); 
-                printf("[-c] : Effectue un renforcement de contraste\n"); 
-                printf("[-d] : Effectue une dilatation\n"); 
-                printf("[-e] : Effectue une erosion\n"); 
-                printf("[-f] : Effectue un flou\n"); 
-                printf("[-g] : Effectue une nuance de gris\n"); 
-                printf("[-i Arg] : Indique un fichier d'entrée avec Arg le nom du fichier d'entrée\n"); 
-                printf("[-l] : Effectue une détection de contours\n"); 
-                printf("[-m] : Effectue un mirroir\n"); 
-                printf("[-n] : Effectue un négatif\n"); 
-                printf("[-o Arg] : Indique un fichier de sortie avec Arg le nom du fichier de sortie\n"); 
-                printf("[-p] : Effectue une rotation de 90°\n"); 
-                printf("[-r] : Effectue un recadrage dynamique\n"); 
-                printf("[-s] : Effectue une segmentation\n"); 
-                printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et de profondeur Arg3\n"); 
-                printf("[-Z] : Effectue un zoom\n"); 
-                printf("[-z] : Effectue un dézoom\n\n"); 
-                printf("COMPORTEMENT :\n"); 
-                printf("L'option -i est obligatoire sauf si l'option -x ou -h sont présentent.\n"); 
-                printf("Si l'option -o n'est pas précisée alors le fichier sera affiché dans la console.\n"); 
-                printf("Il n'y a pas de restrictions sur les options\n");
+                printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n");
+                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
+                printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n");
+                printf("[-c] : Effectue un renforcement de contraste\n");
+                printf("[-d] : Effectue une dilatation\n");
+                printf("[-e] : Effectue une erosion\n");
+                printf("[-f] : Effectue un flou\n");
+                printf("[-g] : Effectue une nuance de gris\n");
+                printf("[-i Arg] : Indique un fichier d'entrée avec Arg le nom du fichier d'entrée\n");
+                printf("[-l] : Effectue une détection de contours\n");
+                printf("[-m] : Effectue un mirroir\n");
+                printf("[-n] : Effectue un négatif\n");
+                printf("[-o Arg] : Indique un fichier de sortie avec Arg le nom du fichier de sortie\n");
+                printf("[-p] : Effectue une rotation de 90° dans le sens horaire\n");
+                printf("[-r] : Effectue un recadrage dynamique\n");
+                printf("[-s] : Effectue une segmentation\n");
+                printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n");
+                printf("[-Z] : Effectue un zoom\n");
+                printf("[-z] : Effectue un dézoom\n\n");
+                printf("COMPORTEMENT :\n");
+                printf("L'option -i est obligatoire sauf si l'option -x ou -h sont présentent.\n");
+                printf("Si l'option -o n'est pas précisée alors le fichier sera affiché dans la console.\n");
+                printf("Il n'y a pas de restrictions sur le nombre d'options.\n");
                 exit(EXIT_SUCCESS);
                 break;
             case 'b':
@@ -141,6 +141,10 @@ int main(int argc, char *argv[]) {
                     largeur = atoi(argv[actio-1]);
                     hauteur = atoi(argv[actio]);
                     epaisseur = atoi(argv[actio+1]);
+                    if (largeur <= 0 || hauteur <= 0 || epaisseur <= 0) {
+                        printf("Erreur : les arguments de l'option -x doivent être des nombres positifs\nUtilisez l'argument -h pour afficher l'aide.\n");
+                        exit(EXIT_FAILURE);
+                    }
                 }
                 printf("-x ENTERED avec %d comme largeur, %d comme hauteur et %d comme epaisseur\n", largeur, hauteur, epaisseur); //? LOG
                 break;
@@ -180,78 +184,82 @@ int main(int argc, char *argv[]) {
         printf("Erreur : Aucune image n'a été chargée et l'option -x n'a pas été spécifiée !\nUtilisez l'argument -h pour afficher l'aide.\n");
         exit(EXIT_FAILURE);
     }
-
-//Transformations
+    
+    //Transformations
     if (gg > 0) {
         transform_gris(&im);
         printf("Niveau de gris effectué !\n"); //? LOG
     }
-
-    if (bb > 0) { //TODO : ADD verif for binaryseuil
+    
+    if (bb > 0) {
+        if(binaryseuil < 0 || binaryseuil > im.maxvalue) {
+                    printf("Erreur : Le seuil doit être compris entre 0 et %d\n",im.maxvalue);
+                    exit(EXIT_FAILURE);
+                }
         binaire(&im,binaryseuil);
         printf("Binarisation effectuée !\n"); //? LOG
     }
-
+    
     if (mm > 0) {
         miroir(&im);
         printf("Miroir effectué !\n"); //? LOG
     }
-
+    
     if (pp > 0) {
         rotate(&im);
         printf("Rotation effectuée !\n"); //? LOG
     }
-
+    
     if (nn > 0) {
         negatif(&im);
         printf("Negatif effectué !\n"); //? LOG
     }
-
+    
     if (rr > 0) {
         recadyna(&im);
         printf("Recadrage dynamique effectué !\n"); //? LOG
     }
-
+    
     if (cc > 0) {
         contraste(&im);
         printf("Renforcement de contraste effectué !\n"); //? LOG
     }
-/*
+    /*
     if (ff > 0) {
         flou(&im);
         printf("Flou effectué !\n"); //? LOG
     }
-
+    
     if (ll > 0) {
         detectioncontour(&im);
         printf("Detection de contours effectuée !\n"); //? LOG
     }
-
+    
     if (ee > 0) {
         erosion(&im);
         printf("Erosion effectuée !\n"); //? LOG
     }
-
+    
     if (dd > 0) {
         dilatation(&im);
         printf("Dilatation effectuée !\n"); //? LOG
     }
-
+    
     if (grandz > 0) {
         zoom(&im);
         printf("Zoom effectué !\n"); //? LOG
     }
-
+    
     if (petitz > 0) {
         dezoom(&im);
         printf("Dezoom effectué !\n"); //? LOG
     }
-
+    
     if (ss > 0) {
         segmentation(&im);
         printf("Segmentation effectué !\n"); //? LOG
-    }
-*/
+        }
+    */
     //Call output image (export ou affichage)
     if (output > 0) {
         exportimage(outputname,&im);

@@ -123,7 +123,11 @@ void recadyna(image* im) { //TODO : Refaire la fonction (ne fonctionne pas)
     int max;
     int min;
     tab = (int*)malloc(255*sizeof(int));
+    transform_gris(im);
     tab = histogramme(im);
+    for(int i=0; i<255; i++){
+      printf("%d \n", tab[i]);
+    }
     max = tab[0];
     min = tab[0];
     for (int i = 0; i < 255; i++) {

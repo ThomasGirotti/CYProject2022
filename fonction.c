@@ -101,7 +101,7 @@ void contraste(image* img) { //*Fonction validée
     free(matrice);
 }
 
-void floutage(image* img) { //*Fonction a tester
+void floutage(image* img) { //TODO : Fix function
     int** matrice;
     image img2;
     img2.x=img->x;
@@ -122,7 +122,7 @@ void floutage(image* img) { //*Fonction a tester
     for (int i = 0; i < 3; i++) {
         matrice[i]=(int*)malloc(3 *sizeof(int));
     }
-    matrice[0][0]=0.0625;
+    matrice[0][0]=0.0625; //! Valeur non ronde dans int
     matrice[0][1]=0.125;
     matrice[0][2]=0.0625;
     matrice[1][0]=0.125;
@@ -138,7 +138,7 @@ void floutage(image* img) { //*Fonction a tester
     free(matrice);
 }
 
-void contour(image* img) { //*Fonction a tester
+void contour(image* img) { //*Fonction valdiée
     int** matrice;
     image img2;
     img2.x=img->x;

@@ -21,7 +21,7 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution 
-void convolution(image* img, int** matrice,image* img2) { //*Fonction validée
+void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas le même rendu que sur exemple
     int compteur_red;
     int compteur_green;
     int compteur_blue;
@@ -40,32 +40,31 @@ void convolution(image* img, int** matrice,image* img2) { //*Fonction validée
             if (compteur_red>0) {
                 img2->red[i][j]=compteur_red;
             } else {
-                img2->red[i][j]=-compteur_red;
+                img2->red[i][j]=0;
             }
             if (compteur_green>0) {
                 img2->green[i][j]=compteur_green;
             } else {
-                img2->green[i][j]=-compteur_green;
+                img2->green[i][j]=0;
             }
             if (compteur_blue>0) {
                 img2->blue[i][j]=compteur_blue;
             } else {
-                img2->blue[i][j]=-compteur_blue;
+                img2->blue[i][j]=0;
             }
         }
     }
-    for(int d=0; d<(img->x)-2;d++){ // On balaie les lignes
-        for(int e=0; e<(img->y)-2;e++){ // On balaie les colonnes
+    for(int d=0; d<(img->x)-2;d++) { // On balaie les lignes
+        for(int e=0; e<(img->y)-2;e++) { // On balaie les colonnes
             img->red[d][e]=img2->red[d][e];
             img->blue[d][e]=img2->blue[d][e];
             img->green[d][e]=img2->green[d][e];
         }
     }
-
 }
 
 void contraste(image* img) { //*Fonction validée
-    int** matrice;
+    float** matrice;
     image img2;
     img2.x=img->x;
     img2.y=img->y;
@@ -81,9 +80,9 @@ void contraste(image* img) { //*Fonction validée
     for (int f = 0; f < img->x; f++) {
         img2.blue[f]=(int*)malloc(img->y *sizeof(int));
     }
-    matrice=(int**)malloc(3 *sizeof(int*));
+    matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
-        matrice[i]=(int*)malloc(3 *sizeof(int));
+        matrice[i]=(float*)malloc(3 *sizeof(float));
     }
     matrice[0][0]=0;
     matrice[0][1]=-1;
@@ -101,8 +100,8 @@ void contraste(image* img) { //*Fonction validée
     free(matrice);
 }
 
-void floutage(image* img) { //TODO : Fix function
-    int** matrice;
+void floutage(image* img) { //* Fonction validée
+    float** matrice;
     image img2;
     img2.x=img->x;
     img2.y=img->y;
@@ -118,11 +117,11 @@ void floutage(image* img) { //TODO : Fix function
     for (int f = 0; f < img->x; f++) {
         img2.blue[f]=(int*)malloc(img->y *sizeof(int));
     }
-    matrice=(int**)malloc(3 *sizeof(int*));
+    matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
-        matrice[i]=(int*)malloc(3 *sizeof(int));
+        matrice[i]=(float*)malloc(3 *sizeof(float));
     }
-    matrice[0][0]=0.0625; //! Valeur non ronde dans int
+    matrice[0][0]=0.0625;
     matrice[0][1]=0.125;
     matrice[0][2]=0.0625;
     matrice[1][0]=0.125;
@@ -139,7 +138,7 @@ void floutage(image* img) { //TODO : Fix function
 }
 
 void contour(image* img) { //*Fonction valdiée
-    int** matrice;
+    float** matrice;
     image img2;
     img2.x=img->x;
     img2.y=img->y;
@@ -155,9 +154,9 @@ void contour(image* img) { //*Fonction valdiée
     for (int f = 0; f < img->x; f++) {
         img2.blue[f]=(int*)malloc(img->y *sizeof(int));
     }
-    matrice=(int**)malloc(3 *sizeof(int*));
+    matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
-        matrice[i]=(int*)malloc(3 *sizeof(int));
+        matrice[i]=(float*)malloc(3 *sizeof(float));
     }
     matrice[0][0]=-1;
     matrice[0][1]=-1;
@@ -338,6 +337,97 @@ void transform_gris(image* im) { //* Fonction validée
             im->green[i][j]=pixel; // Transforme le vert dans la bonne teinte
             im->blue[i][j]=pixel; // Transforme le bleu dans la bonne teinte
             
+        }
+    }
+}
+/*void erosion(image* im,croix cr){   //prototype de erosion
+  int compteur_red;
+  int tab_red[im->x][im->y];
+  int max_pix=0;
+  for (int i=0;i<(im->x);i++) {
+      for (int j=0;j<(im->y);j++) {
+        tab_red[i][j]=im->red[i][j];     
+      }
+    }
+  for (int i=0;i<(im->x)-cr.x;i++) {
+      for (int j=0;j<(im->y)-cr.y;j++) {
+        max_pix=0; 
+        for (int k=0;k<cr.x;k++) {
+              for (int l=0;l<cr.y;l++){
+                  if cr.red[k][l]==0{
+                    if tab_red[i+k-(cr.x)/2][j+l-cr.y/2]>max_pix{
+                      max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+                    }
+                  }
+              }
+            im->red[i][j]=max_pix;
+            im->green[i][j]=max_pix;
+            im->blue[i][j]=max_pix;
+           } 
+      }
+    }
+} */
+
+/*void dilatation(image* im,croix cr){  // prototype de dilatation
+  int compteur_red;
+  int tab_red[im->x][im->y];
+  int max_pix=255;
+  for (int i=0;i<(im->x);i++) {
+      for (int j=0;j<(im->y);j++) {
+        tab_red[i][j]=im->red[i][j];     
+      }
+    }
+  for (int i=0;i<(im->x)-cr.x;i++) {
+      for (int j=0;j<(im->y)-cr.y;j++) {
+        max_pix=255; 
+        for (int k=0;k<cr.x;k++) {
+              for (int l=0;l<cr.y;l++){
+                  if cr.red[k][l]==0{
+                    if tab_red[i+k-(cr.x)/2][j+l-cr.y/2]<max_pix{
+                      max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+                    }
+                  }
+              }
+            im->red[i][j]=max_pix;
+            im->green[i][j]=max_pix;
+            im->blue[i][j]=max_pix;
+           } 
+      }
+    }
+}*/
+
+void rotate(image* im) {
+    int pivot=0;
+    int tab_red[im->y][im->x];
+    int tab_green[im->y][im->x];
+    int tab_blue[im->y][im->x];
+    for (int i = 0; i < im->x; i++) {
+        for (int j=0; j<im->y;j++){
+            tab_red[j][i]=im->red[i][j];
+            tab_green[j][i]=im->green[i][j];
+            tab_blue[j][i]=im->blue[i][j];
+        }
+    }
+    pivot=im->x;
+    im->x=im->y;
+    im->y=im->x;
+    im->red = realloc(im->red, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->red[g] = realloc(im->red[g], im->x *sizeof(int));
+    }   
+    im->green = realloc(im->green, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->green[g] = realloc(im->green[g], im->x *sizeof(int));
+    }
+    im->blue = realloc(im->blue, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
+    }
+    for (int i = 0; i < im->x; i++) {
+        for (int j=0; j<im->y;j++){
+            im->red[i][j]=tab_red[i][j];
+            im->blue[i][j]=tab_blue[i][j];
+            im->green[i][j]=tab_green[i][j];
         }
     }
 }

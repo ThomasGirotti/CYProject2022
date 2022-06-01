@@ -171,7 +171,10 @@ int main(int argc, char *argv[]) {
     //Call input image
     if ((input > 0) || (actio > 0)) {
         if (input > 0) {
-            importimage(inputname,&im); //? Maybe refaire to cause function to return somthing
+            error = importimage(inputname,&im); //? Maybe refaire to cause function to return somthing
+                if (error != 0) {
+                    exit(EXIT_FAILURE);
+                }
             printf("Image chargée !\n"); //? LOG
             printf("maxvaluetest = %d\n",im.maxvalue); //? LOG
         }
@@ -254,15 +257,13 @@ int main(int argc, char *argv[]) {
         dezoom(&im);
         printf("Dezoom effectué !\n"); //? LOG
     }
-    
-    if (ss > 0) {
-        segmentation(&im);
-        printf("Segmentation effectué !\n"); //? LOG
-        }
     */
     //Call output image (export ou affichage)
     if (output > 0) {
-        exportimage(outputname,&im);
+        error = exportimage(outputname,&im);
+        if (error != 0) {
+            exit(EXIT_FAILURE);
+        }
         printf("Image exportée !\n"); //? LOG
     } else {
         printimage(&im);

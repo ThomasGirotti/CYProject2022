@@ -349,3 +349,30 @@ void transform_gris(image* im) { //* Fonction validée
         }
     }
 }
+/*void erosion(image* im,croix cr){   //prototype de erosion
+  int compteur_red;
+  int tab_red[im->x][im->y];
+  int max_pix=0;
+  for (int i=0;i<(im->x);i++) {
+      for (int j=0;j<(im->y);j++) {
+        tab_red[i][j]=im->red[i][j];     
+      }
+    }
+  for (int i=0;i<(im->x)-cr.x;i++) {
+      for (int j=0;j<(im->y)-cr.y;j++) {
+        max_pix=0; 
+        for (int k=0;k<cr.x;k++) {
+              for (int l=0;l<cr.y;l++){
+                  if cr.red[k][l]==0{
+                    if tab_red[i+k-(cr.x)/2][j+l-cr.y/2]>max_pix{
+                      max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+                    }
+                  }
+              }
+            im->red[i][j]=max_pix;
+            im->green[i][j]=max_pix;
+            im->blue[i][j]=max_pix;
+           } 
+      }
+    }
+} */

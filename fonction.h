@@ -26,5 +26,5 @@ void negatif(image* im);
 void recadyna(image* im);
 void rotate(image* im);
 void transform_gris(image* im);
-
+void freeimage(image* im);
 #endif

@@ -171,7 +171,7 @@ int main(int argc, char *argv[]) {
     //Call input image
     if ((input > 0) || (actio > 0)) {
         if (input > 0) {
-            error = importimage(inputname,&im); //? Maybe refaire to cause function to return somthing
+            error = importimage(inputname,&im);
                 if (error != 0) {
                     exit(EXIT_FAILURE);
                 }

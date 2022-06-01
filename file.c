@@ -84,3 +84,14 @@ void printimage(image* im) {
         }
     }
 }
+
+void freeimage(image* im) {
+    for (int i = 0; i < im->x; i++) {
+        free(im->red[i]);
+        free(im->green[i]);
+        free(im->blue[i]);
+    }
+    free(im->red);
+    free(im->green);
+    free(im->blue);
+}

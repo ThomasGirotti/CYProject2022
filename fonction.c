@@ -21,7 +21,7 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution 
-void convolution(image* img, int** matrice,image* img2) { //*Fonction a tester
+void convolution(image* img, int** matrice,image* img2) { //*Fonction validée
     int compteur_red;
     int compteur_green;
     int compteur_blue;
@@ -101,7 +101,7 @@ void contraste(image* img) { //*Fonction validée
     free(matrice);
 }
 
-void floutage(image* img) { //*Fonction validée
+void floutage(image* img) { //*Fonction a tester
     int** matrice;
     image img2;
     img2.x=img->x;
@@ -131,6 +131,43 @@ void floutage(image* img) { //*Fonction validée
     matrice[2][0]=0.0625;
     matrice[2][1]=0.125;
     matrice[2][2]=0.0625;
+    convolution(img,matrice,&img2);
+    for (int i = 0; i < 3; i++) {
+        free(matrice[i]);
+    }
+    free(matrice);
+}
+
+void contour(image* img) { //*Fonction a tester
+    int** matrice;
+    image img2;
+    img2.x=img->x;
+    img2.y=img->y;
+    img2.red=(int**)malloc(img->x *sizeof(int*));
+    for (int g = 0; g < img->x; g++) {
+        img2.red[g]=(int*)malloc(img->y *sizeof(int));
+    }
+    img2.green=(int**)malloc(img->x *sizeof(int*));
+    for (int h = 0; h < img->x; h++) {
+        img2.green[h]=(int*)malloc(img->y *sizeof(int));
+    }
+    img2.blue=(int**)malloc(img->x *sizeof(int*));
+    for (int f = 0; f < img->x; f++) {
+        img2.blue[f]=(int*)malloc(img->y *sizeof(int));
+    }
+    matrice=(int**)malloc(3 *sizeof(int*));
+    for (int i = 0; i < 3; i++) {
+        matrice[i]=(int*)malloc(3 *sizeof(int));
+    }
+    matrice[0][0]=-1;
+    matrice[0][1]=-1;
+    matrice[0][2]=-1;
+    matrice[1][0]=-1;
+    matrice[1][1]=8;
+    matrice[1][2]=-1;
+    matrice[2][0]=-1;
+    matrice[2][1]=-1;
+    matrice[2][2]=-1;
     convolution(img,matrice,&img2);
     for (int i = 0; i < 3; i++) {
         free(matrice[i]);

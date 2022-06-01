@@ -265,66 +265,65 @@ void recadyna(image* im) { //* Fonction validée
 }
 
 //Fonction Rotate
-void rotate(image* im) { //! 256 * 255 ne fonctionne pas (mais 255 * 256 fonctionne)
-    image imrotate;
-    imrotate.x = im->y;
-    imrotate.y = im->x;
-    imrotate.red=malloc(sizeof(int*)*imrotate.x);
-    for(int i=0; i<imrotate.x; i++){
-        imrotate.red[i]=malloc(sizeof(int)*imrotate.y); 
+void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT / YES ITS TRUE THIS TIME)
+    image im2;
+    im2.x = im->y;
+    im2.y = im->x;
+    im2.red=(int**)malloc(im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im2.red[g]=(int*)malloc(im2.y *sizeof(int));
     }
-    imrotate.blue=malloc(sizeof(int*)*imrotate.x);
-    for(int i=0; i<imrotate.x; i++){
-        imrotate.blue[i]=malloc(sizeof(int)*imrotate.y); 
+    im2.green=(int**)malloc(im2.x *sizeof(int*));
+    for (int h = 0; h < im2.x; h++) {
+        im2.green[h]=(int*)malloc(im2.y *sizeof(int));
     }
-    imrotate.green=malloc(sizeof(int*)*imrotate.x);
-    for(int i=0; i<imrotate.x; i++){
-        imrotate.green[i]=malloc(sizeof(int)*imrotate.y); 
+    im2.blue=(int**)malloc(im2.x *sizeof(int*));
+    for (int f = 0; f < im2.x; f++) {
+        im2.blue[f]=(int*)malloc(im2.y *sizeof(int));
     }
-    for(int i=0; i<imrotate.x; i++) {
-        for(int j=0; j<imrotate.y; j++) {
-            imrotate.red[i][j]=im->red[j][imrotate.x-i-1];
-            imrotate.green[i][j]=im->green[j][imrotate.x-i-1];
-            imrotate.blue[i][j]=im->blue[j][imrotate.x-i-1];
+    for(int i=0; i<im2.x; i++) {
+        for(int j=0; j<im2.y; j++) {
+            im2.red[i][j]=im->red[j][im2.x-i-1];
+            im2.green[i][j]=im->green[j][im2.x-i-1];
+            im2.blue[i][j]=im->blue[j][im2.x-i-1];
         }
     }
-    im->red = realloc(im->red, imrotate.x*sizeof(int*));
-    for (int g = 0; g < imrotate.x; g++) {
-        im->red[g] = realloc(im->red[g], imrotate.y *sizeof(int));
+    im->red = realloc(im->red, im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im->red[g] = realloc(im->red[g], im2.y *sizeof(int));
     }   
-    im->green = realloc(im->green, imrotate.x*sizeof(int*));
-    for (int g = 0; g < imrotate.x; g++) {
-        im->green[g] = realloc(im->green[g], imrotate.y *sizeof(int));
+    im->green = realloc(im->green, im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im->green[g] = realloc(im->green[g], im2.y *sizeof(int));
     }
-    im->blue = realloc(im->blue, imrotate.x *sizeof(int*));
-    for (int g = 0; g < imrotate.x; g++) {
-        im->blue[g] = realloc(im->blue[g], imrotate.y*sizeof(int));
+    im->blue = realloc(im->blue, im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im->blue[g] = realloc(im->blue[g], im2.y *sizeof(int));
     }
-    im->x = imrotate.x;
-    im->y = imrotate.y;
+    im->x = im2.x;
+    im->y = im2.y;
         for(int i=0; i<im->y; i++) {
             for(int j=0; j<im->x; j++) {
-                im->red[j][i]=imrotate.red[j][i];
-                im->green[j][i]=imrotate.green[j][i];
-                im->blue[j][i]=imrotate.blue[j][i];
+                im->red[j][i]=im2.red[j][i];
+                im->green[j][i]=im2.green[j][i];
+                im->blue[j][i]=im2.blue[j][i];
             }
         }
-
-    for(int i=0; i<imrotate.y; i++) {
-        free(imrotate.red[i]);
+    for(int i=0; i<im2.x; i++) {
+        free(im2.red[i]);
     }
-    for(int i=0; i<imrotate.y; i++) {
-        free(imrotate.blue[i]);
+    for(int i=0; i<im2.x; i++) {
+        free(im2.blue[i]);
     }
-    for(int i=0; i<imrotate.y; i++) {
-        free(imrotate.green[i]);
+    for(int i=0; i<im2.x; i++) {
+        free(im2.green[i]);
     }
-    free(imrotate.red);
-    free(imrotate.blue);
-    free(imrotate.green);
-    imrotate.red = NULL;
-    imrotate.blue = NULL;
-    imrotate.green = NULL;
+    free(im2.red);
+    free(im2.blue);
+    free(im2.green);
+    im2.red = NULL;
+    im2.blue = NULL;
+    im2.green = NULL;
 }
 
 //Fonction Transform_gris
@@ -395,39 +394,3 @@ void transform_gris(image* im) { //* Fonction validée
       }
     }
 }*/
-
-void rotate(image* im) {
-    int pivot=0;
-    int tab_red[im->y][im->x];
-    int tab_green[im->y][im->x];
-    int tab_blue[im->y][im->x];
-    for (int i = 0; i < im->x; i++) {
-        for (int j=0; j<im->y;j++){
-            tab_red[j][i]=im->red[i][j];
-            tab_green[j][i]=im->green[i][j];
-            tab_blue[j][i]=im->blue[i][j];
-        }
-    }
-    pivot=im->x;
-    im->x=im->y;
-    im->y=im->x;
-    im->red = realloc(im->red, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->red[g] = realloc(im->red[g], im->x *sizeof(int));
-    }   
-    im->green = realloc(im->green, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->green[g] = realloc(im->green[g], im->x *sizeof(int));
-    }
-    im->blue = realloc(im->blue, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
-    }
-    for (int i = 0; i < im->x; i++) {
-        for (int j=0; j<im->y;j++){
-            im->red[i][j]=tab_red[i][j];
-            im->blue[i][j]=tab_blue[i][j];
-            im->green[i][j]=tab_green[i][j];
-        }
-    }
-}

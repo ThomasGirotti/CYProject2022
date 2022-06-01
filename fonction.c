@@ -404,3 +404,39 @@ void transform_gris(image* im) { //* Fonction validée
       }
     }
 }*/
+
+void rotate(image* im) {
+    int pivot=0;
+    int tab_red[im->y][im->x];
+    int tab_green[im->y][im->x];
+    int tab_blue[im->y][im->x];
+    for (int i = 0; i < im->x; i++) {
+        for (int j=0; j<im->y;j++){
+            tab_red[j][i]=im->red[i][j];
+            tab_green[j][i]=im->green[i][j];
+            tab_blue[j][i]=im->blue[i][j];
+        }
+    }
+    pivot=im->x;
+    im->x=im->y;
+    im->y=im->x;
+    im->red = realloc(im->red, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->red[g] = realloc(im->red[g], im->x *sizeof(int));
+    }   
+    im->green = realloc(im->green, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->green[g] = realloc(im->green[g], im->x *sizeof(int));
+    }
+    im->blue = realloc(im->blue, im->y *sizeof(int*));
+    for (int g = 0; g < im->y; g++) {
+        im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
+    }
+    for (int i = 0; i < im->x; i++) {
+        for (int j=0; j<im->y;j++){
+            im->red[i][j]=tab_red[i][j];
+            im->blue[i][j]=tab_blue[i][j];
+            im->green[i][j]=tab_green[i][j];
+        }
+    }
+}

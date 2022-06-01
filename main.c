@@ -268,5 +268,6 @@ int main(int argc, char *argv[]) {
     } else {
         printimage(&im);
     }
+    freeimage(&im);
     return 0;
 }

@@ -11,7 +11,7 @@ typedef struct image{
 } image;
 
 //Prototypage
-void importimage(char* inputname,image* im);
+int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
 void printimage(image* im);
 

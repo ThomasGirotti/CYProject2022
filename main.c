@@ -224,17 +224,17 @@ int main(int argc, char *argv[]) {
         contraste(&im);
         printf("Renforcement de contraste effectué !\n"); //? LOG
     }
-    /*
+    
     if (ff > 0) {
-        flou(&im);
+        floutage(&im);
         printf("Flou effectué !\n"); //? LOG
     }
     
     if (ll > 0) {
-        detectioncontour(&im);
+        contour(&im);
         printf("Detection de contours effectuée !\n"); //? LOG
     }
-    
+    /*
     if (ee > 0) {
         erosion(&im);
         printf("Erosion effectuée !\n"); //? LOG

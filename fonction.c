@@ -282,51 +282,42 @@ void rotate(image* im) { //! 256 * 255 ne fonctionne pas (mais 255 * 256 fonctio
     for(int i=0; i<imrotate.x; i++){
         imrotate.green[i]=malloc(sizeof(int)*imrotate.y); 
     }
-    for(int i=0; i<im->y; i++) {
-        for(int j=0; j<im->x; j++) {
-            imrotate.red[i][j]=im->red[j][im->x-i-1];
-            imrotate.green[i][j]=im->green[j][im->x-i-1];
-            imrotate.blue[i][j]=im->blue[j][im->x-i-1];
+    for(int i=0; i<imrotate.x; i++) {
+        for(int j=0; j<imrotate.y; j++) {
+            imrotate.red[i][j]=im->red[j][imrotate.x-i-1];
+            imrotate.green[i][j]=im->green[j][imrotate.x-i-1];
+            imrotate.blue[i][j]=im->blue[j][imrotate.x-i-1];
         }
     }
-    im->red = realloc(im->red, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->red[g] = realloc(im->red[g], im->x *sizeof(int));
+    im->red = realloc(im->red, imrotate.x*sizeof(int*));
+    for (int g = 0; g < imrotate.x; g++) {
+        im->red[g] = realloc(im->red[g], imrotate.y *sizeof(int));
     }   
-    im->green = realloc(im->green, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->green[g] = realloc(im->green[g], im->x *sizeof(int));
+    im->green = realloc(im->green, imrotate.x*sizeof(int*));
+    for (int g = 0; g < imrotate.x; g++) {
+        im->green[g] = realloc(im->green[g], imrotate.y *sizeof(int));
     }
-    im->blue = realloc(im->blue, im->y *sizeof(int*));
-    for (int g = 0; g < im->y; g++) {
-        im->blue[g] = realloc(im->blue[g], im->x *sizeof(int));
+    im->blue = realloc(im->blue, imrotate.x *sizeof(int*));
+    for (int g = 0; g < imrotate.x; g++) {
+        im->blue[g] = realloc(im->blue[g], imrotate.y*sizeof(int));
     }
-    if (im->x==im->y) {
+    im->x = imrotate.x;
+    im->y = imrotate.y;
         for(int i=0; i<im->y; i++) {
             for(int j=0; j<im->x; j++) {
-                im->red[i][j]=imrotate.red[i][j];
-                im->green[i][j]=imrotate.green[i][j];
-                im->blue[i][j]=imrotate.blue[i][j];
+                im->red[j][i]=imrotate.red[j][i];
+                im->green[j][i]=imrotate.green[j][i];
+                im->blue[j][i]=imrotate.blue[j][i];
             }
         }
-    } else {
-    im->y=imrotate.y;
-    im->x=imrotate.x;
-        for(int i=0; i<=im->y; i++) {
-            for(int j=0; j<=im->x; j++) {
-                im->red[i][j]=imrotate.red[i][j];
-                im->green[i][j]=imrotate.green[i][j];
-                im->blue[i][j]=imrotate.blue[i][j];
-            }
-        }
-    }
-    for(int i=0; i<imrotate.x; i++) {
+
+    for(int i=0; i<imrotate.y; i++) {
         free(imrotate.red[i]);
     }
-    for(int i=0; i<imrotate.x; i++) {
+    for(int i=0; i<imrotate.y; i++) {
         free(imrotate.blue[i]);
     }
-    for(int i=0; i<imrotate.x; i++) {
+    for(int i=0; i<imrotate.y; i++) {
         free(imrotate.green[i]);
     }
     free(imrotate.red);

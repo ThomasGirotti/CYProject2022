@@ -37,14 +37,15 @@ int importimage(char* inputname,image* im) {
                 }
             }
             fclose(file);
-            return 1;
+            printf("Returned 1\n"); //? LOG
+            return 0;
         } else {
             printf("Erreur : Le fichier n'est pas au format PPM P3\n");
-            return 0;
+            return 1;
         }
     } else {
         printf("Erreur : Le fichier n'a pas pu être ouvert, veuillez vérifier le nom\nUtilisez l'argument -h pour afficher l'aide\n");
-        return 0;
+        return 1;
     }
 }
 

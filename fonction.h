@@ -11,7 +11,9 @@ typedef struct image{
 } image;
 
 typedef struct croix{
-  image cr;
+  int x;
+  int y;
+  int largeur;
 }croix;
 
 //Prototypage

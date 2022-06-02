@@ -94,4 +94,7 @@ void freeimage(image* im) {
     free(im->red);
     free(im->green);
     free(im->blue);
+    im->red = NULL;
+    im->green = NULL;
+    im->blue = NULL;
 }

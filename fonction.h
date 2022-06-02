@@ -14,6 +14,7 @@ typedef struct croix{
   int x;
   int y;
   int largeur;
+  image im;
 }croix;
 
 //Prototypage

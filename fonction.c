@@ -14,13 +14,13 @@ void binaire(image* im,int seuil) { //* Fonction validée
             } else {
                 im->red[i][j]=im->maxvalue; // transforme le rouge dans la bonne teinte
                 im->green[i][j]=im->maxvalue; // transforme le vert dans la bonne teinte
-                im->blue[i][j]=im->maxvalue; // transforme le bleu dans la bonne teinte   
+                im->blue[i][j]=im->maxvalue; // transforme le bleu dans la bonne teinte
             }
         }
-    }  
+    }
 }
 
-//Fonction Convolution 
+//Fonction Convolution
 void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas le même rendu que sur exemple
     int compteur_red;
     int compteur_green;
@@ -98,6 +98,7 @@ void contraste(image* img) { //*Fonction validée
         free(matrice[i]);
     }
     free(matrice);
+    freeimage(&img2);
 }
 
 void floutage(image* img) { //* Fonction validée
@@ -135,6 +136,7 @@ void floutage(image* img) { //* Fonction validée
         free(matrice[i]);
     }
     free(matrice);
+    freeimage(&img2);
 }
 
 void contour(image* img) { //*Fonction valdiée
@@ -172,6 +174,7 @@ void contour(image* img) { //*Fonction valdiée
         free(matrice[i]);
     }
     free(matrice);
+    freeimage(&img2);
 }
 
 //Fonction Histogramme
@@ -192,12 +195,10 @@ void histogramme(image* img,int* tab) { //* Fonction validée
 
 //Fonction Mirroir
 void miroir(image* im) { //* Fonction validée
-    int pixel=0;
     int pixel_red=0;
     int pixel_green=0;
     int pixel_blue=0;
     int x=im->x;
-    int y=im->y;
     for(int i=0; i<(im->x)/2;i++) { // On balaie les lignes
         for(int j=0; j<im->y;j++) { // On balaie les colonnes
             pixel_red=im->red[i][j];
@@ -252,7 +253,9 @@ void recadyna(image* im) { //* Fonction validée
         }
     }
     maxl=z;
+    printf("%d %d \n", maxl, minl);
     del = (float)255/(maxl-minl);
+    printf ("%f\n", del);
     for (int i = 0; i < im->x; i++) {
         for (int j=0; j<im->y;j++){
             im->red[i][j]= (im->red[i][j]-minl)*del;
@@ -289,7 +292,7 @@ void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT 
     im->red = realloc(im->red, im2.x *sizeof(int*));
     for (int g = 0; g < im2.x; g++) {
         im->red[g] = realloc(im->red[g], im2.y *sizeof(int));
-    }   
+    }
     im->green = realloc(im->green, im2.x *sizeof(int*));
     for (int g = 0; g < im2.x; g++) {
         im->green[g] = realloc(im->green[g], im2.y *sizeof(int));
@@ -307,21 +310,7 @@ void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT 
                 im->blue[j][i]=im2.blue[j][i];
             }
         }
-    for(int i=0; i<im2.x; i++) {
-        free(im2.red[i]);
-    }
-    for(int i=0; i<im2.x; i++) {
-        free(im2.blue[i]);
-    }
-    for(int i=0; i<im2.x; i++) {
-        free(im2.green[i]);
-    }
-    free(im2.red);
-    free(im2.blue);
-    free(im2.green);
-    im2.red = NULL;
-    im2.blue = NULL;
-    im2.green = NULL;
+    freeimage(&im2);
 }
 
 //Fonction Transform_gris
@@ -333,7 +322,7 @@ void transform_gris(image* im) { //* Fonction validée
             im->red[i][j]=pixel; // Transforme le rouge dans la bonne teinte
             im->green[i][j]=pixel; // Transforme le vert dans la bonne teinte
             im->blue[i][j]=pixel; // Transforme le bleu dans la bonne teinte
-            
+
         }
     }
 }
@@ -343,12 +332,12 @@ void transform_gris(image* im) { //* Fonction validée
   int max_pix=0;
   for (int i=0;i<(im->x);i++) {
       for (int j=0;j<(im->y);j++) {
-        tab_red[i][j]=im->red[i][j];     
+        tab_red[i][j]=im->red[i][j];
       }
     }
   for (int i=0;i<(im->x)-cr.x;i++) {
       for (int j=0;j<(im->y)-cr.y;j++) {
-        max_pix=0; 
+        max_pix=0;
         for (int k=0;k<cr.x;k++) {
               for (int l=0;l<cr.y;l++){
                   if cr.red[k][l]==0{
@@ -360,7 +349,7 @@ void transform_gris(image* im) { //* Fonction validée
             im->red[i][j]=max_pix;
             im->green[i][j]=max_pix;
             im->blue[i][j]=max_pix;
-           } 
+           }
       }
     }
 } */
@@ -371,12 +360,12 @@ void transform_gris(image* im) { //* Fonction validée
   int max_pix=255;
   for (int i=0;i<(im->x);i++) {
       for (int j=0;j<(im->y);j++) {
-        tab_red[i][j]=im->red[i][j];     
+        tab_red[i][j]=im->red[i][j];
       }
     }
   for (int i=0;i<(im->x)-cr.x;i++) {
       for (int j=0;j<(im->y)-cr.y;j++) {
-        max_pix=255; 
+        max_pix=255;
         for (int k=0;k<cr.x;k++) {
               for (int l=0;l<cr.y;l++){
                   if cr.red[k][l]==0{
@@ -388,7 +377,7 @@ void transform_gris(image* im) { //* Fonction validée
             im->red[i][j]=max_pix;
             im->green[i][j]=max_pix;
             im->blue[i][j]=max_pix;
-           } 
+           }
       }
     }
 }*/

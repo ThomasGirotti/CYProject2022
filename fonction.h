@@ -21,6 +21,7 @@ int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
 void printimage(image* im);
 
+void croix (croix* cro);
 void binaire(image* im,int seuil);
 void contraste(image* img);
 void contour(image* img);

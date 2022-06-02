@@ -10,6 +10,10 @@ typedef struct image{
   int y;
 } image;
 
+typedef struct croix{
+  image cr;
+}croix;
+
 //Prototypage
 int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);

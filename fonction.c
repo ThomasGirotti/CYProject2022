@@ -59,31 +59,33 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             compteur_red=0;
             compteur_green=0;
             compteur_blue=0;
-            for (int k=-1;k<2;k++) {
-                for (int l=-1;l<2;l++){
-                    compteur_red=compteur_red+matrice[k+1][l+1]*img->red[i+k][j+l];
-                    compteur_green=compteur_green+matrice[k+1][l+1]*img->green[i+k][j+l];
-                    compteur_blue=compteur_blue+matrice[k+1][l+1]*img->blue[i+k][j+l];
+            for (int k=0;k<3;k++) {
+                for (int l=0;l<3;l++){
+                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k-1][j+l-1];
+                    compteur_green=compteur_green+matrice[k][l]*img->green[i+k-1][j+l-1];
+                    compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k-1][j+l-1];
                 }
             }
+            
             if (compteur_red>0) {
-                img->red[i][j]=compteur_red;
+                img->red[i-1][j-1]=compteur_red;
             } else {
-                img->red[i][j]=0;
+                img->red[i-1][j-1]=0;
             }
             if (compteur_green>0) {
-                img->green[i][j]=compteur_green;
+                img->green[i-1][j-1]=compteur_green;
             } else {
-                img->green[i][j]=0;
+                img->green[i-1][j-1]=0;
             }
             if (compteur_blue>0) {
-                img->blue[i][j]=compteur_blue;
+                img->blue[i-1][j-1]=compteur_blue;
             } else {
-                img->blue[i][j]=0;
+                img->blue[i-1][j-1]=0;
             }
         }
     }
 }
+    
 
 //Fonction contraste
 /* Auteur : Lilian */
@@ -519,62 +521,106 @@ void creercroix (image* im,int lon, int larg, int ep){
 
 } 
 
-void erosion(image* im,croix cr){   //prototype de erosion
-  /*int compteur_red;
-  int tab_red[im->x][im->y];
-  int max_pix=0;
-  for (int i=0;i<(im->x);i++) {
-      for (int j=0;j<(im->y);j++) {
-        tab_red[i][j]=im->red[i][j];
-      }
+void dilatation(image* im,croix cr) {
+    transform_gris(im);
+    image im2;
+    im2.x = cr.x;
+    im2.y = cr.y;
+    im2.red=(int**)malloc(im2.x *sizeof(int*)); //Initialisation du tableau
+    for (int g = 0; g < im2.x; g++) {
+        im2.red[g]=(int*)malloc(im2.y *sizeof(int));
     }
-  for (int i=0;i<(im->x)-cr.x;i++) {
-      for (int j=0;j<(im->y)-cr.y;j++) {
-        max_pix=0;
-        for (int k=0;k<cr.x;k++) {
-              for (int l=0;l<cr.y;l++){
-                  if cr.red[k][l]==0{
-                    if tab_red[i+k-(cr.x)/2][j+l-cr.y/2]>max_pix{
-                      max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+    for (int i=0; i<im2.x; i++){
+        for (int j=0; j<im2.y; j++){
+            im2.red[i][j]=0;
+        }
+    }
+    im2.red[2][0]=255;
+    im2.red[2][1]=255;
+    im2.red[0][2]=255;
+    im2.red[1][2]=255;
+    im2.red[2][2]=255;
+    im2.red[3][2]=255;
+    im2.red[4][2]=255;
+    im2.red[2][3]=255;
+    im2.red[2][4]=255;
+    int compteur_red;
+    int tab_red[im->x][im->y];
+    int max_pix=0;
+    for (int i=0;i<(im->x);i++) {
+        for (int j=0;j<(im->y);j++) {
+            tab_red[i][j]=im->red[i][j];
+        }
+    }
+    for (int i=0;i<(im->x)-cr.x;i++) {
+        for (int j=0;j<(im->y)-cr.y;j++) {
+            max_pix=0;
+            for (int k=0;k<cr.x;k++) {
+                for (int l=0;l<cr.y;l++) {
+                    if (im2.red[k][l]==0) {
+                        if (tab_red[i+k-(cr.x)/2][j+l-cr.y/2]>max_pix) {
+                            max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+                        }
                     }
-                  }
-              }
+                }
             im->red[i][j]=max_pix;
             im->green[i][j]=max_pix;
             im->blue[i][j]=max_pix;
-           }
-      }
-    }*/
-} 
-
-void dilatation(image* im,croix cr){  // prototype de dilatation
- /* int compteur_red;
-  int tab_red[im->x][im->y];
-  int max_pix=255;
-  for (int i=0;i<(im->x);i++) {
-      for (int j=0;j<(im->y);j++) {
-        tab_red[i][j]=im->red[i][j];
-      }
+        }
     }
-  for (int i=0;i<(im->x)-cr.x;i++) {
-      for (int j=0;j<(im->y)-cr.y;j++) {
-        max_pix=255;
-        for (int k=0;k<cr.x;k++) {
-              for (int l=0;l<cr.y;l++){
-                  if cr.red[k][l]==0{
-                    if tab_red[i+k-(cr.x)/2][j+l-cr.y/2]<max_pix{
-                      max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
-                    }
-                  }
-              }
-            im->red[i][j]=max_pix;
-            im->green[i][j]=max_pix;
-            im->blue[i][j]=max_pix;
-           }
-      }
-    }*/
+}
 }
 
+
+void erosion(image* im,croix cr) {
+    transform_gris(im);
+    image im2;
+    im2.x = cr.x;
+    im2.y = cr.y;
+    im2.red=(int**)malloc(im2.x *sizeof(int*)); //Initialisation du tableau
+    for (int g = 0; g < im2.x; g++) {
+        im2.red[g]=(int*)malloc(im2.y *sizeof(int));
+    }
+    for (int i=0; i<im2.x; i++){
+        for (int j=0; j<im2.y; j++){
+            im2.red[i][j]=0;
+        }
+    }
+    im2.red[2][0]=255;
+    im2.red[2][1]=255;
+    im2.red[0][2]=255;
+    im2.red[1][2]=255;
+    im2.red[2][2]=255;
+    im2.red[3][2]=255;
+    im2.red[4][2]=255;
+    im2.red[2][3]=255;
+    im2.red[2][4]=255;
+    int compteur_red;
+    int tab_red[im->x][im->y];
+    int max_pix=255;
+    for (int i=0;i<(im->x);i++) {
+        for (int j=0;j<(im->y);j++) {
+            tab_red[i][j]=im->red[i][j];
+        }
+    }
+    for (int i=0;i<(im->x)-cr.x;i++) {
+        for (int j=0;j<(im->y)-cr.y;j++) {
+            max_pix=255;
+            for (int k=0;k<cr.x;k++) {
+                for (int l=0;l<cr.y;l++){
+                    if (im2.red[k][l]==0) {
+                        if (tab_red[i+k-(cr.x)/2][j+l-cr.y/2]<max_pix) {
+                            max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
+                        }
+                    }
+             }
+            im->red[i][j]=max_pix;
+            im->green[i][j]=max_pix;
+            im->blue[i][j]=max_pix;
+        }
+    }
+}
+}
 
 void zoom(image* im){
     image im2;

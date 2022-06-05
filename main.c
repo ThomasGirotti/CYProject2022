@@ -73,67 +73,49 @@ int main(int argc, char *argv[]) {
             case 'b':
                 binaryseuil = atoi(optarg);
                 bb++;
-                printf("-b ENTERED avec %d comme seuil\n", binaryseuil); //? LOG
                 break;
             case 'c':
-                printf("-c ENTERED\n"); //? LOG
                 cc++;
                 break;
             case 'd':
-                printf("-d ENTERED\n"); //? LOG
                 dd++;
                 break;
             case 'e':
-                printf("-e ENTERED\n"); //? LOG
                 ee++;
                 break;
             case 'f':
-                printf("-f ENTERED\n"); //? LOG
                 ff++;
                 break;
             case 'g':
-                printf("-g ENTERED\n"); //? LOG
                 gg++;
                 break;
             case 'i':
                 inputname = optarg;
                 input++;
-                printf("-i ENTERED avec %s comme nom de fichier d'entrée\n", inputname); //? LOG
                 break;
             case 'l':
-                printf("-l ENTERED\n"); //? LOG
                 ll++;
                 break;
             case 'm':
-                printf("-m ENTERED\n"); //? LOG
                 mm++;
                 break;
             case 'n':
-                printf("-n ENTERED\n"); //? LOG
                 nn++;
             case 'o':
                 outputname = optarg;
                 output++;
-                printf("-o ENTERED avec %s comme nom de fichier de sortie\n", outputname); //? LOG
                 break;
             case 'p':
-                printf("-p ENTERED\n"); //? LOG
                 pp++;
                 break;
             case 'r':
-                printf("-r ENTERED\n"); //? LOG
                 rr++;
                 break;
             case 's':
-                printf("-s ENTERED\n"); //? LOG
                 ss++;
                 break;
             case 'x':
                 actio = optind;
-                printf("optind = %d\n", optind); //? LOG
-                printf("optind = %d\n", optind); //? LOG
-                printf("actio + 1 = %d\n", actio+1); //? LOG
-                printf("argc = %d\n", argc); //? LOG
                 if (actio + 1 >= argc) {
                     printf("Erreur : l'option -x nécessite 3 arguments\nUtilisez l'argument -h pour afficher l'aide.\n");
                     exit(EXIT_FAILURE);
@@ -149,11 +131,9 @@ int main(int argc, char *argv[]) {
                 printf("-x ENTERED avec %d comme largeur, %d comme hauteur et %d comme epaisseur\n", largeur, hauteur, epaisseur); //? LOG
                 break;
             case 'Z':
-                printf("-Z ENTERED\n"); //? LOG
                 grandz++;
                 break;
             case 'z':
-                printf("-z ENTERED\n"); //? LOG
                 petitz++;
                 break;
             default:
@@ -161,8 +141,6 @@ int main(int argc, char *argv[]) {
                 break;
         }
     }
-    printf("argc = %d\n",argc); //? LOG
-    printf("error = %d\n",error); //? LOG
     if ((error != 0) || (argc == 1)) {
         printf("Erreur : Les arguments ont mal été entrés !\nUtilisez l'argument -h pour afficher l'aide.\n");
         exit(EXIT_FAILURE);
@@ -176,10 +154,8 @@ int main(int argc, char *argv[]) {
                     exit(EXIT_FAILURE);
                 }
             printf("Image chargée !\n"); //? LOG
-            printf("maxvaluetest = %d\n",im.maxvalue); //? LOG
         }
         if (actio > 0) {
-            //Fonction création de la croix
             creercroix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
             printf("Croix crée !\n"); //? LOG
         }
@@ -237,17 +213,25 @@ int main(int argc, char *argv[]) {
         contour(&im);
         printf("Detection de contours effectuée !\n"); //? LOG
     }
-    /*
+    
     if (ee > 0) {
-        erosion(&im);
+        croix croix5;
+        croix5.x = 5;
+        croix5.y = 5;
+        croix5.epaisseur = 1;
+        erosion(&im,&croix5);
         printf("Erosion effectuée !\n"); //? LOG
     }
     
     if (dd > 0) {
-        dilatation(&im);
+        croix croix5;
+        croix5.x = 5;
+        croix5.y = 5;
+        croix5.epaisseur = 1;
+        dilatation(&im,&croix5);
         printf("Dilatation effectuée !\n"); //? LOG
     }
-    
+    /*
     if (grandz > 0) {
         zoom(&im);
         printf("Zoom effectué !\n"); //? LOG

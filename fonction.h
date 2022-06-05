@@ -37,4 +37,5 @@ void freeimage(image* im);
 void erosion(image* im,croix cr);
 void dilatation(image* im,croix cr);
 void zoom(image* im);
+void dezoom(image* im);
 #endif

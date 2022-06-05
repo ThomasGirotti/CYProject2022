@@ -561,3 +561,56 @@ void creercroix (image* im,int lon, int larg, int ep){
       }
     }
 }*/
+/*void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rendu que sur exemple
+    int compteur_red=0;
+    int compteur_green=0;
+    int compteur_blue=0;    
+    
+    
+    int tab_red[img->x+2][img->y+2];
+    int tab_green[img->x+2][img->y+2];
+    int tab_blue[img->x+2][img->y+2];
+    for (int i=0;i<(img->x)+2;i++) {
+        for (int j=0;j<(img->y)+2;j++) {
+            if (i==0 || i==img->x+1 || j==0 || j==img->y+1){
+                tab_red[i][j]=0;
+                tab_green[i][j]=0;
+                tab_blue[i][j]=0;
+            }
+            else {
+                tab_red[i][j]=img->red[i-1][j-1];
+                tab_green[i][j]=img->green[i-1][j-1];
+                tab_blue[i][j]=img->blue[i-1][j-1];
+            }
+        }
+    }   
+    for (int i=1;i<(img->x)+1;i++) {
+        for (int j=1;j<(img->y)+1;j++) {
+            compteur_red=0;
+            compteur_green=0;
+            compteur_blue=0;
+            for (int k=-1;k<2;k++) {
+                for (int l=-1;l<2;l++){
+                    compteur_red=compteur_red+matrice[k+1][l+1]*img->red[i+k][j+l];
+                    compteur_green=compteur_green+matrice[k+1][l+1]*img->green[i+k][j+l];
+                    compteur_blue=compteur_blue+matrice[k+1][l+1]*img->blue[i+k][j+l];
+                }
+            }
+            if (compteur_red>0) {
+                img->red[i][j]=compteur_red;
+            } else {
+                img->red[i][j]=0;
+            }
+            if (compteur_green>0) {
+                img->green[i][j]=compteur_green;
+            } else {
+                img->green[i][j]=0;
+            }
+            if (compteur_blue>0) {
+                img->blue[i][j]=compteur_blue;
+            } else {
+                img2->blue[i][j]=0;
+            }
+        }
+    }
+}*/

@@ -79,7 +79,7 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             if (compteur_blue>0) {
                 img->blue[i][j]=compteur_blue;
             } else {
-                img2->blue[i][j]=0;
+                img->blue[i][j]=0;
             }
         }
     }

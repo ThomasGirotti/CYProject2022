@@ -95,21 +95,6 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
 /* Sortie(s) :   */
 void contraste(image* img) { //*Fonction validée
     float** matrice;
-    image img2;
-    img2.x=img->x;
-    img2.y=img->y;
-    img2.red=(int**)malloc(img->x *sizeof(int*));
-    for (int g = 0; g < img->x; g++) {
-        img2.red[g]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.green=(int**)malloc(img->x *sizeof(int*));
-    for (int h = 0; h < img->x; h++) {
-        img2.green[h]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.blue=(int**)malloc(img->x *sizeof(int*));
-    for (int f = 0; f < img->x; f++) {
-        img2.blue[f]=(int*)malloc(img->y *sizeof(int));
-    }
     matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
@@ -128,7 +113,6 @@ void contraste(image* img) { //*Fonction validée
         free(matrice[i]);
     }
     free(matrice);
-    freeimage(&img2);
 }
 //Fonction floutage
 /* Auteur : Lilian */
@@ -138,21 +122,6 @@ void contraste(image* img) { //*Fonction validée
 /* Sortie(s) :   */
 void floutage(image* img) { //* Fonction validée
     float** matrice;
-    image img2;
-    img2.x=img->x;
-    img2.y=img->y;
-    img2.red=(int**)malloc(img->x *sizeof(int*));
-    for (int g = 0; g < img->x; g++) {
-        img2.red[g]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.green=(int**)malloc(img->x *sizeof(int*));
-    for (int h = 0; h < img->x; h++) {
-        img2.green[h]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.blue=(int**)malloc(img->x *sizeof(int*));
-    for (int f = 0; f < img->x; f++) {
-        img2.blue[f]=(int*)malloc(img->y *sizeof(int));
-    }
     matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
@@ -171,7 +140,6 @@ void floutage(image* img) { //* Fonction validée
         free(matrice[i]);
     }
     free(matrice);
-    freeimage(&img2);
 }
  //Fonction contour
 /* Auteur : Lilian */
@@ -181,21 +149,6 @@ void floutage(image* img) { //* Fonction validée
 /* Sortie(s) :   */
 void contour(image* img) { //*Fonction valdiée
     float** matrice;
-    image img2;
-    img2.x=img->x;
-    img2.y=img->y;
-    img2.red=(int**)malloc(img->x *sizeof(int*));
-    for (int g = 0; g < img->x; g++) {
-        img2.red[g]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.green=(int**)malloc(img->x *sizeof(int*));
-    for (int h = 0; h < img->x; h++) {
-        img2.green[h]=(int*)malloc(img->y *sizeof(int));
-    }
-    img2.blue=(int**)malloc(img->x *sizeof(int*));
-    for (int f = 0; f < img->x; f++) {
-        img2.blue[f]=(int*)malloc(img->y *sizeof(int));
-    }
     matrice=(float**)malloc(3 *sizeof(float*));
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
@@ -214,7 +167,6 @@ void contour(image* img) { //*Fonction valdiée
         free(matrice[i]);
     }
     free(matrice);
-    freeimage(&img2);
 }
 //Fonction histogramme
 /* Auteur : Lilian */
@@ -313,9 +265,7 @@ void recadyna(image* im) { //* Fonction validée
         }
     }
     maxl=z;
-    printf("%d %d \n", maxl, minl);
     del = (float)255/(maxl-minl); // on calcule le delta
-    printf ("%f\n", del);
     for (int i = 0; i < im->x; i++) { // on applique la formule pour tous les pixels
         for (int j=0; j<im->y;j++){
             im->red[i][j]= (im->red[i][j]-minl)*del;

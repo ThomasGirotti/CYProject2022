@@ -43,13 +43,14 @@ int main(int argc, char *argv[]) {
                 printf("Ce programme permet de faire des traitements sur une image\n\n");
                 printf("APPEL :\n");
                 printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n");
-                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
+                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-h] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
                 printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n");
                 printf("[-c] : Effectue un renforcement de contraste\n");
                 printf("[-d] : Effectue une dilatation\n");
                 printf("[-e] : Effectue une erosion\n");
                 printf("[-f] : Effectue un flou\n");
                 printf("[-g] : Effectue une nuance de gris\n");
+                printf("[-h] : Affiche l'aide\n");
                 printf("[-i Arg] : Indique un fichier d'entrée avec Arg le nom du fichier d'entrée\n");
                 printf("[-l] : Effectue une détection de contours\n");
                 printf("[-m] : Effectue un mirroir\n");

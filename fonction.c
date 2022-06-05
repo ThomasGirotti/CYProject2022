@@ -85,7 +85,6 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
         }
     }
 }
-    
 
 //Fonction contraste
 /* Auteur : Lilian */
@@ -114,6 +113,7 @@ void contraste(image* img) { //*Fonction validée
     }
     free(matrice);
 }
+
 //Fonction floutage
 /* Auteur : Lilian */
 /* Date :   31/05 */
@@ -141,7 +141,8 @@ void floutage(image* img) { //* Fonction validée
     }
     free(matrice);
 }
- //Fonction contour
+
+//Fonction contour
 /* Auteur : Lilian */
 /* Date :   31/05 */
 /* Résumé : met en évidence les contour de l'image l'image*/
@@ -168,13 +169,13 @@ void contour(image* img) { //*Fonction valdiée
     }
     free(matrice);
 }
+
 //Fonction histogramme
 /* Auteur : Lilian */
 /* Date :   26/05 */
 /* Résumé : créé un histogramme de l'image et les met dans un tableau*/
 /* Entrée(s) :  image* img, int* tab*/
 /* Sortie(s) :   */
-//Fonction Histogramme
 void histogramme(image* img,int* tab) { //* Fonction validée
     int x;
     int y;
@@ -342,10 +343,10 @@ void transform_gris(image* im) { //* Fonction validée
             im->red[i][j]=pixel; // Transforme le rouge dans la bonne teinte
             im->green[i][j]=pixel; // Transforme le vert dans la bonne teinte
             im->blue[i][j]=pixel; // Transforme le bleu dans la bonne teinte
-
         }
     }
 }
+
 //Fonction creercroix
 /* Auteur : Pierre-Antoine */
 /* Date :   04/06 */
@@ -516,9 +517,9 @@ void dilatation(image* im,croix cr) {
             im->red[i][j]=max_pix;
             im->green[i][j]=max_pix;
             im->blue[i][j]=max_pix;
+            }
         }
     }
-}
 }
 
 
@@ -563,13 +564,13 @@ void erosion(image* im,croix cr) {
                             max_pix=tab_red[i+k-(cr.x)/2][j+l-cr.y/2];
                         }
                     }
-             }
-            im->red[i][j]=max_pix;
-            im->green[i][j]=max_pix;
-            im->blue[i][j]=max_pix;
+                }
+                im->red[i][j]=max_pix;
+                im->green[i][j]=max_pix;
+                im->blue[i][j]=max_pix;
+            }
         }
     }
-}
 }
 
 void zoom(image* im){
@@ -613,39 +614,33 @@ void zoom(image* im){
     }*/
     
 
-     for(int i=0; i<im2.y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
-            for(int j=0; j<im2.x; j++) {
-                if (j==im2.x){
-                    a=1;
-                }
-                if (i==im2.y){
-                    b=1;
-                }
-                 im->red[2*j][2*i]=im2.red[j][i];
-                 im->red[2*j+1][2*i]=im2.red[j][i];
-                 im->red[2*j][2*i+1]=im2.red[j][i];
-                 im->red[2*j+1][2*i+1]=im2.red[j][i];
-            
-               
-               
+    for(int i=0; i<im2.y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
+        for(int j=0; j<im2.x; j++) {
+            if (j==im2.x){
+                a=1;
+            }
+            if (i==im2.y){
+                b=1;
+            }
+            im->red[2*j][2*i]=im2.red[j][i];
+            im->red[2*j+1][2*i]=im2.red[j][i];
+            im->red[2*j][2*i+1]=im2.red[j][i];
+            im->red[2*j+1][2*i+1]=im2.red[j][i];
+
                 im->green[2*j][2*i]=im2.green[j][i];
                 im->green[2*j+1][2*i]=im2.green[j][i];
                 im->green[2*j][2*i+1]=im2.green[j][i];
                 im->green[2*j+1][2*i+1]=im2.green[j][i];
-                
-                
                 
                 im->blue[2*j][2*i]=im2.blue[j][i];
                 im->blue[2*j+1][2*i]=im2.blue[j][i];
                 im->blue[2*j][2*i+1]=im2.blue[j][i];
                 im->blue[2*j+1][2*i+1]=im2.blue[j][i];
             }
-     }
-         
+    }
     freeimage(&im2); 
 }
 
 void dezoom(image* im){
     
 }
-

@@ -95,7 +95,7 @@ void printimage(image* im) {
     }
 }
 
-//Fonction exporteimage
+//Fonction freeimage
 /* Auteur : Thomas */
 /* Date :   27/05 */
 /* Résumé : free les tableaux*/

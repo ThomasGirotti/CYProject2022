@@ -8,7 +8,7 @@
 /* Date :   27/05 */
 /* Résumé : transpose l'image dans la structure image*/
 /* Entrée(s) :  char* inputname, image* img*/
-/* Sortie(s) :   */
+/* Sortie(s) :   0 ou 1*/
 int importimage(char* inputname,image* im) {
     char laLigne[10];
     FILE* file = NULL;
@@ -54,7 +54,7 @@ int importimage(char* inputname,image* im) {
 /* Date :   28/05 */
 /* Résumé : applique à une image les instructions demandées*/
 /* Entrée(s) :  char* outputname, image* img*/
-/* Sortie(s) :   */
+/* Sortie(s) :   0 ou 1*/
 int exportimage(char* outputname,image* im) {
     FILE* file = NULL;
     file = fopen(outputname,"w"); //Creation du fichier

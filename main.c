@@ -4,7 +4,7 @@
 #include <getopt.h>
 #include "fonction.h"
 //Macros
-#define OPTSTR "hb:cdefgi:lmno:prsx:Zz"
+#define OPTSTR "hb:cdefgi:lmno:prsZz"
 //Fonction main
 int main(int argc, char *argv[]) {
     //Déclaration des variables
@@ -12,10 +12,6 @@ int main(int argc, char *argv[]) {
     int input = 0;
     int output = 0;
     int binaryseuil;
-    int largeur = 0;
-    int hauteur = 0;
-    int epaisseur = 0;
-    int actio = 0;
     int error = 0;
     int bb = 0;
     int cc = 0;
@@ -42,7 +38,7 @@ int main(int argc, char *argv[]) {
                 printf("Ce programme permet de faire des traitements sur une image\n\n");
                 printf("APPEL :\n");
                 printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n");
-                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-h] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
+                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-h] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-Z] [-z]\n\n");
                 printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n");
                 printf("[-c] : Effectue un renforcement de contraste\n");
                 printf("[-d] : Effectue une dilatation\n");
@@ -57,11 +53,10 @@ int main(int argc, char *argv[]) {
                 printf("[-o Arg] : Indique un fichier de sortie avec Arg le nom du fichier de sortie\n");
                 printf("[-p] : Effectue une rotation de 90° dans le sens horaire\n");
                 printf("[-r] : Effectue un recadrage dynamique\n");
-                printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n");
                 printf("[-Z] : Effectue un zoom\n");
                 printf("[-z] : Effectue un dézoom\n\n");
                 printf("COMPORTEMENT :\n");
-                printf("L'option -i est obligatoire sauf si l'option -x ou -h sont présentent.\n");
+                printf("L'option -i est obligatoire sauf si l'option -h est présente.\n");
                 printf("Si l'option -o n'est pas précisée alors le fichier sera affiché dans la console.\n");
                 printf("Il n'y a pas de restrictions sur le nombre d'options.\n");
                 exit(EXIT_SUCCESS);
@@ -111,21 +106,6 @@ int main(int argc, char *argv[]) {
             case 'r':
                 rr++;
                 break;
-            case 'x':
-                actio = optind;
-                if (actio + 1 >= argc) {
-                    printf("Erreur : l'option -x nécessite 3 arguments\nUtilisez l'argument -h pour afficher l'aide.\n");
-                    exit(EXIT_FAILURE);
-                } else {
-                    largeur = atoi(argv[actio-1]);
-                    hauteur = atoi(argv[actio]);
-                    epaisseur = atoi(argv[actio+1]);
-                    if (largeur <= 0 || hauteur <= 0 || epaisseur <= 0) {
-                        printf("Erreur : les arguments de l'option -x doivent être des nombres positifs\nUtilisez l'argument -h pour afficher l'aide.\n");
-                        exit(EXIT_FAILURE);
-                    }
-                }
-                break;
             case 'Z':
                 grandz++;
                 break;
@@ -142,18 +122,13 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     //Execution des actions en fonction des arguments
-    if ((input > 0) || (actio > 0)) {
-        if (input > 0) {
-            error = importimage(inputname,&im);
-                if (error != 0) {
-                    exit(EXIT_FAILURE);
-                }
-        }
-        if (actio > 0) {
-            creercroix(&im,largeur,hauteur,epaisseur);
-        }
+    if (input > 0) {
+        error = importimage(inputname,&im);
+            if (error != 0) {
+                exit(EXIT_FAILURE);
+            }
     } else {
-        printf("Erreur : Aucune image n'a été chargée et l'option -x n'a pas été spécifiée !\nUtilisez l'argument -h pour afficher l'aide.\n");
+        printf("Erreur : Aucune image n'a été chargée !\nUtilisez l'argument -h pour afficher l'aide.\n");
         exit(EXIT_FAILURE);
     }
     

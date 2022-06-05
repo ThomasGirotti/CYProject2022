@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
                 printf("Ce programme permet de faire des traitements sur une image\n\n");
                 printf("APPEL :\n");
                 printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n");
-                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
+                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3]\n\n");
                 printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n");
                 printf("[-c] : Effectue un renforcement de contraste\n");
                 printf("[-d] : Effectue une dilatation\n");
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
                 printf("[-r] : Effectue un recadrage dynamique\n");
                 printf("[-s] : Effectue une segmentation\n");
                 printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n");
-                printf("[-Z] : Effectue un zoom\n");
-                printf("[-z] : Effectue un dézoom\n\n");
+                //printf("[-Z] : Effectue un zoom\n");
+                //printf("[-z] : Effectue un dézoom\n\n");
                 printf("COMPORTEMENT :\n");
                 printf("L'option -i est obligatoire sauf si l'option -x ou -h sont présentent.\n");
                 printf("Si l'option -o n'est pas précisée alors le fichier sera affiché dans la console.\n");
@@ -153,11 +153,9 @@ int main(int argc, char *argv[]) {
                 if (error != 0) {
                     exit(EXIT_FAILURE);
                 }
-            printf("Image chargée !\n"); //? LOG
         }
         if (actio > 0) {
             creercroix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
-            printf("Croix crée !\n"); //? LOG
         }
     } else {
         printf("Erreur : Aucune image n'a été chargée et l'option -x n'a pas été spécifiée !\nUtilisez l'argument -h pour afficher l'aide.\n");
@@ -167,7 +165,6 @@ int main(int argc, char *argv[]) {
     //Transformations
     if (gg > 0) {
         transform_gris(&im);
-        printf("Niveau de gris effectué !\n"); //? LOG
     }
     
     if (bb > 0) {
@@ -176,42 +173,34 @@ int main(int argc, char *argv[]) {
                     exit(EXIT_FAILURE);
                 }
         binaire(&im,binaryseuil);
-        printf("Binarisation effectuée !\n"); //? LOG
     }
     
     if (mm > 0) {
         miroir(&im);
-        printf("Miroir effectué !\n"); //? LOG
     }
     
     if (pp > 0) {
         rotate(&im);
-        printf("Rotation effectuée !\n"); //? LOG
     }
     
     if (nn > 0) {
         negatif(&im);
-        printf("Negatif effectué !\n"); //? LOG
     }
     
     if (rr > 0) {
         recadyna(&im);
-        printf("Recadrage dynamique effectué !\n"); //? LOG
     }
     
     if (cc > 0) {
         contraste(&im);
-        printf("Renforcement de contraste effectué !\n"); //? LOG
     }
     
     if (ff > 0) {
         floutage(&im);
-        printf("Flou effectué !\n"); //? LOG
     }
     
     if (ll > 0) {
         contour(&im);
-        printf("Detection de contours effectuée !\n"); //? LOG
     }
     
     if (ee > 0) {
@@ -219,8 +208,7 @@ int main(int argc, char *argv[]) {
         croix5.x = 5;
         croix5.y = 5;
         croix5.epaisseur = 1;
-        erosion(&im,&croix5);
-        printf("Erosion effectuée !\n"); //? LOG
+        erosion(&im,croix5);
     }
     
     if (dd > 0) {
@@ -228,27 +216,13 @@ int main(int argc, char *argv[]) {
         croix5.x = 5;
         croix5.y = 5;
         croix5.epaisseur = 1;
-        dilatation(&im,&croix5);
-        printf("Dilatation effectuée !\n"); //? LOG
+        dilatation(&im,croix5);
     }
-    /*
-    if (grandz > 0) {
-        zoom(&im);
-        printf("Zoom effectué !\n"); //? LOG
-    }
-    
-    if (petitz > 0) {
-        dezoom(&im);
-        printf("Dezoom effectué !\n"); //? LOG
-    }
-    */
-    //Call output image (export ou affichage)
     if (output > 0) {
         error = exportimage(outputname,&im);
         if (error != 0) {
             exit(EXIT_FAILURE);
         }
-        printf("Image exportée !\n"); //? LOG
     } else {
         printimage(&im);
     }

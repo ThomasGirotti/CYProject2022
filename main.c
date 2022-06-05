@@ -70,6 +70,10 @@ int main(int argc, char *argv[]) {
                 break;
             case 'b':
                 binaryseuil = atoi(optarg);
+                if (binaryseuil < 0 || binaryseuil > 255) {
+                    printf("Erreur : Le seuil de binarisation doit être compris entre 0 et 255\n");
+                    exit(EXIT_FAILURE);
+                }
                 bb++;
                 break;
             case 'c':
@@ -226,7 +230,7 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
     } else {
-        printimage(&im);
+        //printimage(&im);
     }
 
     //Libération de la mémoire

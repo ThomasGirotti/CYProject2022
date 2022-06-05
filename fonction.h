@@ -15,14 +15,14 @@ typedef struct croix{
   int y;
   int largeur;
   image im;
-}croix;
+} croix;
 
 //Prototypage
 int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
 void printimage(image* im);
 
-void croix (croix* cro);
+void creercroix (image* im, int lon, int larg, int ep);
 void binaire(image* im,int seuil);
 void contraste(image* img);
 void contour(image* img);

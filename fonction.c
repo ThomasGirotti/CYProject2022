@@ -326,6 +326,125 @@ void transform_gris(image* im) { //* Fonction validée
         }
     }
 }
+
+void creercroix (image* im,int lon, int larg, int ep){
+   
+    int deca1;
+    int deca2;
+    im->red = realloc(im->red, lon-1 *sizeof(int*));
+    for (int g = 0; g < lon; g++) {
+        im->red[g] = realloc(im->red[g], larg-1 *sizeof(int));
+    }
+    im->green = realloc(im->green, lon-1 *sizeof(int*));
+    for (int g = 0; g < lon; g++) {
+        im->green[g] = realloc(im->green[g], larg-1 *sizeof(int));
+    }
+    im->blue = realloc(im->blue, lon-1 *sizeof(int*));
+    for (int g = 0; g < lon; g++) {
+        im->blue[g] = realloc(im->blue[g], larg-1 *sizeof(int));
+    }
+    im->x=lon;
+    im->y=larg;
+
+    for (int i=0; i<lon; i++){
+        for (int j=0; j<larg; j++){
+            im->red[i][j]=255;
+            im->green[i][j]=255;
+            im->blue[i][j]=255;
+        }
+    }
+    
+    if (lon%2==0){
+        deca1=0;
+        deca2=0;
+        for(int k=0; k<ep;k++){
+            if (k%2==0){
+                deca2=deca2+1;
+                for (int i=0; i<larg; i++){
+                    im->red[lon/2-(deca2-1)][i]=0;
+                    im->green[lon/2-(deca2-1)][i]=0;
+                    im->blue[lon/2-(deca2-1)][i]=0;
+                }
+            } else {
+                deca1=deca1+1;
+                for (int i=0; i<larg; i++){
+                    im->red[lon/2+deca1][i]=0;
+                    im->green[lon/2+deca1][i]=0;
+                    im->blue[lon/2+deca1][i]=0;
+                }
+            }
+        }
+    } else {
+        deca1=0;
+        deca2=0;
+        for(int k=0; k<ep;k++){
+            if (k%2==0){
+                for (int i=0; i<larg; i++){
+                    im->red[(lon-1)/2-deca2][i]=0;
+                    im->green[(lon-1)/2-deca2][i]=0;
+                    im->blue[(lon-1)/2-deca2][i]=0;
+                }
+            deca2=deca2+1;
+            } else {
+                for (int i=0; i<larg; i++){
+                    im->red[(lon+1)/2+deca1][i]=0;
+                    im->green[(lon+1)/2+deca1][i]=0;
+                    im->blue[(lon+1)/2+deca1][i]=0;
+                    
+                }
+            deca1=deca1+1;
+            }
+        }
+
+    }
+    //////////
+    if (larg%2==0){
+        deca1=0;
+        deca2=0;
+        for(int k=0; k<ep;k++){
+            if (k%2==0){
+                deca2=deca2+1;
+                for (int i=0; i<lon; i++){
+                    im->red[i][larg/2-(deca2-1)]=0;
+                    im->green[i][larg/2-(deca2-1)]=0;
+                    im->blue[i][larg/2-(deca2-1)]=0;
+                }
+            } else {
+                deca1=deca1+1;
+                for (int i=0; i<lon; i++){
+                    im->red[i][larg/2+deca1]=0;
+                    im->green[i][larg/2+deca1]=0;
+                    im->blue[1][larg/2+deca1]=0;
+                }
+            }
+        }
+    } else {
+        deca1=0;
+        deca2=0;
+        for(int k=0; k<ep;k++){
+            if (k%2==0){
+                for (int i=0; i<lon; i++){
+                    im->red[(larg-1)/2-deca2][i]=0;
+                    im->green[(larg-1)/2-deca2][i]=0;
+                    im->blue[(larg-1)/2-deca2][i]=0;
+                }
+            deca2=deca2+1;
+            } else {
+                for (int i=0; i<lon; i++){
+                    im->red[i][(larg+1)/2+deca1]=0;
+                    im->green[i][(larg+1)/2+deca1]=0;
+                    im->blue[i][(larg+1)/2+deca1]=0;
+                    
+                }
+            deca1=deca1+1;
+            }
+        }
+
+    }
+
+
+} 
+
 /*void erosion(image* im,croix cr){   //prototype de erosion
   int compteur_red;
   int tab_red[im->x][im->y];

@@ -180,7 +180,7 @@ int main(int argc, char *argv[]) {
         }
         if (actio > 0) {
             //Fonction création de la croix
-            //croix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
+            creercroix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
             printf("Croix crée !\n"); //? LOG
         }
     } else {

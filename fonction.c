@@ -658,7 +658,7 @@ void zoom(image* im){
     freeimage(&im2); 
 }
 
-//Fonction dilatation
+//Fonction dézoom
 /* Auteur : Pierre-Antoine */
 /* Date :   05/06 */
 /* Résumé : effectue un dézoom /2 sur l'image en entrée*/

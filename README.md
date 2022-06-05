@@ -4,9 +4,12 @@ Lilian Delétoile
 Thomas Girotti
 Pierre-Antoine Cassard
 
-Utilisation
+Utilisation :
+
 écrire dans le terminal: make && make clean
+
 placer le fichier au format ppm p3 souhaité dans le même dossier que le fichier main
+
 puis ecrire : ./main -i bender.ppm -h pour voir les options codés
 
 Pour les options : ./main -i bender.ppm -option -o name.ppm

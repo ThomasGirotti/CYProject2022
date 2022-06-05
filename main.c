@@ -219,6 +219,11 @@ int main(int argc, char *argv[]) {
     if(grandz > 0) {
         zoom(&im);
     }
+
+    if(petitz > 0) {
+        dezoom(&im);
+    }
+    
     //Sauvegarde ou affichage
     if (output > 0) {
         error = exportimage(outputname,&im);

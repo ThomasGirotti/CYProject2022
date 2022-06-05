@@ -665,5 +665,50 @@ void zoom(image* im){
 /* Entrée(s) :  image* im*/
 /* Sortie(s) :   */
 void dezoom(image* im){
-    
+    image im2;
+    im2.x=im->x/2;
+    im2.y=im->y/2;
+    im2.red=(int**)malloc(im2.x *sizeof(int*)); //on alloue les different pixel en fonction de la nouvelle resolution
+    for (int g = 0; g < im2.x; g++) {
+        im2.red[g]=(int*)malloc(im2.y *sizeof(int));
+    }
+    im2.green=(int**)malloc(im2.x *sizeof(int*));
+    for (int h = 0; h < im2.x; h++) {
+        im2.green[h]=(int*)malloc(im2.y *sizeof(int));
+    }
+    im2.blue=(int**)malloc(im2.x *sizeof(int*));
+    for (int f = 0; f < im2.x; f++) {
+        im2.blue[f]=(int*)malloc(im2.y *sizeof(int));
+    }
+    for(int i=0; i<im2.y; i++) {   // on transpose les pixels de l'image de base vers l'image de transition
+        for(int j=0; j<im2.x; j++) {
+           im2.red[j][i]=(im->red[2*j][2*i]+im->red[2*j+1][2*i]+im->red[2*j][2*i+1]+im->red[2*j+1][2*i+1])/4;
+           im2.green[j][i]=(im->green[2*j][2*i]+im->green[2*j+1][2*i]+im->green[2*j][2*i+1]+im->green[2*j+1][2*i+1])/4;
+           im2.blue[j][i]=(im->blue[2*j][2*i]+im->blue[2*j+1][2*i]+im->blue[2*j][2*i+1]+im->blue[2*j+1][2*i+1])/4;
+        }
+    }
+    for(int i=0; i<im2.y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
+            for(int j=0; j<im2.x; j++) {
+                 im->red[2*j][2*i]=im2.red[j][i];
+                 im->red[2*j+1][2*i]=im2.red[j][i];
+                 im->red[2*j][2*i+1]=im2.red[j][i];
+                 im->red[2*j+1][2*i+1]=im2.red[j][i];
+            
+               
+               
+                im->green[2*j][2*i]=im2.green[j][i];
+                im->green[2*j+1][2*i]=im2.green[j][i];
+                im->green[2*j][2*i+1]=im2.green[j][i];
+                im->green[2*j+1][2*i+1]=im2.green[j][i];
+                
+                
+                
+                im->blue[2*j][2*i]=im2.blue[j][i];
+                im->blue[2*j+1][2*i]=im2.blue[j][i];
+                im->blue[2*j][2*i+1]=im2.blue[j][i];
+                im->blue[2*j+1][2*i+1]=im2.blue[j][i];
+            }
+     }
+    freeimage(&im2);
 }
+    

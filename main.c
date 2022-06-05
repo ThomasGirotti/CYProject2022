@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
     int nn = 0;
     int pp = 0;
     int rr = 0;
-    int ss = 0;
     int grandz = 0;
     int petitz = 0;
     char* inputname;
@@ -43,7 +42,7 @@ int main(int argc, char *argv[]) {
                 printf("Ce programme permet de faire des traitements sur une image\n\n");
                 printf("APPEL :\n");
                 printf("La commande d'appel du programme doit être formulée comme ceci (l'ordre des options n'a pas d'importance) :\n\n");
-                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-h] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-s] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
+                printf("./main [-b Arg] [-c] [-d] [-e] [-f] [-g] [-h] [-i Arg] [-l] [-m] [-n] [-o Arg] [-p] [-r] [-x Arg1 Arg2 Arg3] [-Z] [-z]\n\n");
                 printf("[-b Arg] : Effectue une binarisation avec Arg le seuil (nombre entier)\n");
                 printf("[-c] : Effectue un renforcement de contraste\n");
                 printf("[-d] : Effectue une dilatation\n");
@@ -58,7 +57,6 @@ int main(int argc, char *argv[]) {
                 printf("[-o Arg] : Indique un fichier de sortie avec Arg le nom du fichier de sortie\n");
                 printf("[-p] : Effectue une rotation de 90° dans le sens horaire\n");
                 printf("[-r] : Effectue un recadrage dynamique\n");
-                printf("[-s] : Effectue une segmentation\n");
                 printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n");
                 printf("[-Z] : Effectue un zoom\n");
                 printf("[-z] : Effectue un dézoom\n\n");
@@ -112,9 +110,6 @@ int main(int argc, char *argv[]) {
                 break;
             case 'r':
                 rr++;
-                break;
-            case 's':
-                ss++;
                 break;
             case 'x':
                 actio = optind;

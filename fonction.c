@@ -28,7 +28,7 @@ void binaire(image* im,int seuil) { //* Fonction validée
 //Fonction Convolution
 /* Auteur : Lilian */
 /* Date :   30/05 */
-/* Résumé : (à lilian de l'écrire*/
+/* Résumé : prend une matrice de transformation et modifie l'image en fonction de cette dernière.
 /* Entrée(s) :  image* img, float** matrice,image* img2 */
 /* Sortie(s) :   */
 void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas le même rendu que sur exemple

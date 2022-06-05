@@ -644,3 +644,8 @@ void zoom(image* im){
          
     freeimage(&im2); 
 }
+
+void dezoom(image* im){
+    
+}
+

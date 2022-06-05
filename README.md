@@ -1,4 +1,4 @@
-# CYProject2022
+# Groupe 7 du groupe 3 CYProject2022
 Groupe 3 :
 Lilian Delétoile
 Thomas Girotti

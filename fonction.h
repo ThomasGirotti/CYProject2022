@@ -21,7 +21,6 @@ typedef struct croix{
 int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
 void printimage(image* im);
-void creercroix (image* im, int lon, int larg, int ep);
 void binaire(image* im,int seuil);
 void contraste(image* img);
 void contour(image* img);

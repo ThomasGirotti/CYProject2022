@@ -31,44 +31,56 @@ void binaire(image* im,int seuil) { //* Fonction validée
 /* Résumé : prend une matrice de transformation et modifie l'image en fonction de cette dernière.
 /* Entrée(s) :  image* img, float** matrice,image* img2 */
 /* Sortie(s) :   */
-void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas le même rendu que sur exemple
-    int compteur_red;
-    int compteur_green;
-    int compteur_blue;
-    for (int i=0;i<(img->x)-2;i++) {
-        for (int j=0;j<(img->y)-2;j++) {
+void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rendu que sur exemple
+    int compteur_red=0;
+    int compteur_green=0;
+    int compteur_blue=0;    
+    
+    
+    int tab_red[img->x+2][img->y+2];
+    int tab_green[img->x+2][img->y+2];
+    int tab_blue[img->x+2][img->y+2];
+    for (int i=0;i<(img->x)+2;i++) {
+        for (int j=0;j<(img->y)+2;j++) {
+            if (i==0 || i==img->x+1 || j==0 || j==img->y+1){
+                tab_red[i][j]=0;
+                tab_green[i][j]=0;
+                tab_blue[i][j]=0;
+            }
+            else {
+                tab_red[i][j]=img->red[i-1][j-1];
+                tab_green[i][j]=img->green[i-1][j-1];
+                tab_blue[i][j]=img->blue[i-1][j-1];
+            }
+        }
+    }   
+    for (int i=1;i<(img->x)+1;i++) {
+        for (int j=1;j<(img->y)+1;j++) {
             compteur_red=0;
             compteur_green=0;
             compteur_blue=0;
-            for (int k=0;k<3;k++) {
-                for (int l=0;l<3;l++){
-                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k][j+l];
-                    compteur_green=compteur_green+matrice[k][l]*img->green[i+k][j+l];
-                    compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k][j+l];
+            for (int k=-1;k<2;k++) {
+                for (int l=-1;l<2;l++){
+                    compteur_red=compteur_red+matrice[k+1][l+1]*img->red[i+k][j+l];
+                    compteur_green=compteur_green+matrice[k+1][l+1]*img->green[i+k][j+l];
+                    compteur_blue=compteur_blue+matrice[k+1][l+1]*img->blue[i+k][j+l];
                 }
             }
             if (compteur_red>0) {
-                img2->red[i][j]=compteur_red;
+                img->red[i][j]=compteur_red;
             } else {
-                img2->red[i][j]=0;
+                img->red[i][j]=0;
             }
             if (compteur_green>0) {
-                img2->green[i][j]=compteur_green;
+                img->green[i][j]=compteur_green;
             } else {
-                img2->green[i][j]=0;
+                img->green[i][j]=0;
             }
             if (compteur_blue>0) {
-                img2->blue[i][j]=compteur_blue;
+                img->blue[i][j]=compteur_blue;
             } else {
                 img2->blue[i][j]=0;
             }
-        }
-    }
-    for(int d=0; d<(img->x)-2;d++) { // On balaie les lignes
-        for(int e=0; e<(img->y)-2;e++) { // On balaie les colonnes
-            img->red[d][e]=img2->red[d][e];
-            img->blue[d][e]=img2->blue[d][e];
-            img->green[d][e]=img2->green[d][e];
         }
     }
 }

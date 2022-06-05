@@ -164,7 +164,7 @@ void floutage(image* img) { //* Fonction validée
     matrice[2][0]=0.0625;
     matrice[2][1]=0.125;
     matrice[2][2]=0.0625;
-    convolution(img,matrice,&img2);
+    convolution(img,matrice);
     for (int i = 0; i < 3; i++) {
         free(matrice[i]);
     }

@@ -61,9 +61,7 @@ int main(int argc, char *argv[]) {
                 printf("[-p] : Effectue une rotation de 90° dans le sens horaire\n");
                 printf("[-r] : Effectue un recadrage dynamique\n");
                 printf("[-s] : Effectue une segmentation\n");
-                printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n");
-                //printf("[-Z] : Effectue un zoom\n");
-                //printf("[-z] : Effectue un dézoom\n\n");
+                printf("[-x Arg1 Arg2 Arg3] : Créée une croix de largeur Arg1, de hauteur Arg2, et d'épaisseur Arg3\n\n");
                 printf("COMPORTEMENT :\n");
                 printf("L'option -i est obligatoire sauf si l'option -x ou -h sont présentent.\n");
                 printf("Si l'option -o n'est pas précisée alors le fichier sera affiché dans la console.\n");
@@ -146,7 +144,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    //Call input image
+    //Execution des actions en fonction des arguments
     if ((input > 0) || (actio > 0)) {
         if (input > 0) {
             error = importimage(inputname,&im);
@@ -155,14 +153,14 @@ int main(int argc, char *argv[]) {
                 }
         }
         if (actio > 0) {
-            creercroix(&im,largeur,hauteur,epaisseur); //TODO : faire une fonction qui crée une croix
+            creercroix(&im,largeur,hauteur,epaisseur);
         }
     } else {
         printf("Erreur : Aucune image n'a été chargée et l'option -x n'a pas été spécifiée !\nUtilisez l'argument -h pour afficher l'aide.\n");
         exit(EXIT_FAILURE);
     }
     
-    //Transformations
+    //Manpulations basiques
     if (gg > 0) {
         transform_gris(&im);
     }
@@ -191,6 +189,7 @@ int main(int argc, char *argv[]) {
         recadyna(&im);
     }
     
+    //Filtrage
     if (cc > 0) {
         contraste(&im);
     }
@@ -203,6 +202,7 @@ int main(int argc, char *argv[]) {
         contour(&im);
     }
     
+    //Segmentation
     if (ee > 0) {
         croix croix5;
         croix5.x = 5;
@@ -218,6 +218,8 @@ int main(int argc, char *argv[]) {
         croix5.epaisseur = 1;
         dilatation(&im,croix5);
     }
+
+    //Sauvegarde ou affichage
     if (output > 0) {
         error = exportimage(outputname,&im);
         if (error != 0) {
@@ -226,6 +228,8 @@ int main(int argc, char *argv[]) {
     } else {
         printimage(&im);
     }
+
+    //Libération de la mémoire
     freeimage(&im);
     return 0;
 }

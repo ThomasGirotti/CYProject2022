@@ -129,7 +129,6 @@ int main(int argc, char *argv[]) {
                         exit(EXIT_FAILURE);
                     }
                 }
-                printf("-x ENTERED avec %d comme largeur, %d comme hauteur et %d comme epaisseur\n", largeur, hauteur, epaisseur); //? LOG
                 break;
             case 'Z':
                 grandz++;

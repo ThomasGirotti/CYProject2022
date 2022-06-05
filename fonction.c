@@ -574,6 +574,9 @@ void erosion(image* im,croix cr) {
 
 void zoom(image* im){
     image im2;
+    int a, b;
+    a=0;
+    b=0;
     im2.x=im->x/2;
     im2.y=im->y/2;
     im2.red=(int**)malloc(im2.x *sizeof(int*)); //on alloue les different pixel en fonction de la nouvelle resolution
@@ -595,6 +598,7 @@ void zoom(image* im){
             im2.blue[i][j]=im->blue[i+(im2.x/2)][j+(im2.y/2)];
         }
     }
+    /*
     im->red = realloc(im->red, im2.x *sizeof(int*)); // on realloue la largeur et la longueur de l'image de base
     for (int g = 0; g < im2.x; g++) {
         im->red[g] = realloc(im->red[g], im2.y *sizeof(int));
@@ -606,30 +610,37 @@ void zoom(image* im){
     im->blue = realloc(im->blue, im2.x *sizeof(int*));
     for (int g = 0; g < im2.x; g++) {
         im->blue[g] = realloc(im->blue[g], im2.y *sizeof(int));
-    }
+    }*/
     
-        for(int i=0; i<im2.y; i=i+2) {  // on applique les couleurs de l'image de transition sur l'image de base
-            for(int j=0; j<im2.x; j=j+2) {
-                im->red[j][i]=im2.red[j][i];
-                im->red[j+1][i]=im2.red[j][i];
-                im->red[j][i+1]=im2.red[j][i];
-                im->red[j+1][i+1]=im2.red[j][i];
-               
-               
-               /*
-                im->green[j][i]=im2.green[j][i];
-                im->green[j+1][i]=im2.green[j][i];
-                im->green[j][i+1]=im2.green[j][i];
-                im->green[j+1][i+1]=im2.green[j][i];
-                
-                
-                
-                im->blue[j][i]=im2.blue[j][i];
-                im->blue[j+1][i]=im2.blue[j][i];
-                im->blue[j][i+1]=im2.blue[j][i];
-                im->blue[j+1][i+1]=im2.blue[j][i];*/
-            }
-        }
 
+     for(int i=0; i<im2.y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
+            for(int j=0; j<im2.x; j++) {
+                if (j==im2.x){
+                    a=1;
+                }
+                if (i==im2.y){
+                    b=1;
+                }
+                 im->red[2*j][2*i]=im2.red[j][i];
+                 im->red[2*j+1][2*i]=im2.red[j][i];
+                 im->red[2*j][2*i+1]=im2.red[j][i];
+                 im->red[2*j+1][2*i+1]=im2.red[j][i];
+            
+               
+               
+                im->green[2*j][2*i]=im2.green[j][i];
+                im->green[2*j+1][2*i]=im2.green[j][i];
+                im->green[2*j][2*i+1]=im2.green[j][i];
+                im->green[2*j+1][2*i+1]=im2.green[j][i];
+                
+                
+                
+                im->blue[2*j][2*i]=im2.blue[j][i];
+                im->blue[2*j+1][2*i]=im2.blue[j][i];
+                im->blue[2*j][2*i+1]=im2.blue[j][i];
+                im->blue[2*j+1][2*i+1]=im2.blue[j][i];
+            }
+     }
+         
     freeimage(&im2); 
 }

@@ -121,7 +121,7 @@ void contraste(image* img) { //*Fonction validée
     matrice[2][0]=0;
     matrice[2][1]=-1;
     matrice[2][2]=0;
-    convolution(img,matrice,&img2);
+    convolution(img,matrice);
     for (int i = 0; i < 3; i++) {
         free(matrice[i]);
     }
@@ -207,7 +207,7 @@ void contour(image* img) { //*Fonction valdiée
     matrice[2][0]=-1;
     matrice[2][1]=-1;
     matrice[2][2]=-1;
-    convolution(img,matrice,&img2);
+    convolution(img,matrice);
     for (int i = 0; i < 3; i++) {
         free(matrice[i]);
     }

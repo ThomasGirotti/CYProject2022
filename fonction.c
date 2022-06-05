@@ -37,12 +37,12 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
     int compteur_blue=0;    
     
     
-    int tab_red[img->x+2][img->y+2];
+    int tab_red[img->x+2][img->y+2]; // tableau pour stocker les pixels
     int tab_green[img->x+2][img->y+2];
     int tab_blue[img->x+2][img->y+2];
     for (int i=0;i<(img->x)+2;i++) {
         for (int j=0;j<(img->y)+2;j++) {
-            if (i==0 || i==img->x+1 || j==0 || j==img->y+1){
+            if (i==0 || i==img->x+1 || j==0 || j==img->y+1){ // initialisation des pixels stockés
                 tab_red[i][j]=0;
                 tab_green[i][j]=0;
                 tab_blue[i][j]=0;
@@ -60,14 +60,14 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             compteur_green=0;
             compteur_blue=0;
             for (int k=0;k<3;k++) {
-                for (int l=0;l<3;l++){
-                    compteur_red=compteur_red+matrice[k][l]*tab_red[i+k-1][j+l-1];
-                    compteur_green=compteur_green+matrice[k][l]*tab_green[i+k-1][j+l-1];
-                    compteur_blue=compteur_blue+matrice[k][l]*tab_blue[i+k-1][j+l-1];
+                for (int l=0;l<3;l++){ // On traite les pixels avec la matrice
+                    compteur_red=compteur_red+matrice[k][l]*tab_red[i+k-1][j+l-1]; // rouge 
+                    compteur_green=compteur_green+matrice[k][l]*tab_green[i+k-1][j+l-1]; // vert
+                    compteur_blue=compteur_blue+matrice[k][l]*tab_blue[i+k-1][j+l-1]; // bleu
                 }
             }
-            
-            if (compteur_red>0) {
+            // on remet les nouveau pixels
+            if (compteur_red>0) { 
                 img->red[i-1][j-1]=compteur_red;
             } else {
                 img->red[i-1][j-1]=0;
@@ -95,11 +95,11 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
 /* Sortie(s) :   */
 void contraste(image* img) { //*Fonction validée
     float** matrice;
-    matrice=(float**)malloc(3 *sizeof(float*));
+    matrice=(float**)malloc(3 *sizeof(float*)); // malloc de la matrice
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
     }
-    matrice[0][0]=0;
+    matrice[0][0]=0; // initialisation de la matrice 
     matrice[0][1]=-1;
     matrice[0][2]=0;
     matrice[1][0]=-1;
@@ -122,11 +122,11 @@ void contraste(image* img) { //*Fonction validée
 /* Sortie(s) :   */
 void floutage(image* img) { //* Fonction validée
     float** matrice;
-    matrice=(float**)malloc(3 *sizeof(float*));
+    matrice=(float**)malloc(3 *sizeof(float*)); // malloc de la matrice
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
     }
-    matrice[0][0]=0.0625;
+    matrice[0][0]=0.0625; // initialisation de la matrice
     matrice[0][1]=0.125;
     matrice[0][2]=0.0625;
     matrice[1][0]=0.125;
@@ -149,11 +149,11 @@ void floutage(image* img) { //* Fonction validée
 /* Sortie(s) :   */
 void contour(image* img) { //*Fonction valdiée
     float** matrice;
-    matrice=(float**)malloc(3 *sizeof(float*));
+    matrice=(float**)malloc(3 *sizeof(float*)); // malloc de la matrice
     for (int i = 0; i < 3; i++) {
         matrice[i]=(float*)malloc(3 *sizeof(float));
     }
-    matrice[0][0]=-1;
+    matrice[0][0]=-1; // initialisation de la matrice
     matrice[0][1]=-1;
     matrice[0][2]=-1;
     matrice[1][0]=-1;

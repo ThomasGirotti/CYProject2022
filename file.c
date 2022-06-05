@@ -3,6 +3,12 @@
 #include <string.h>
 #include "fonction.h"
 
+//Fonction importimage
+/* Auteur : Thomas */
+/* Date :   27/05 */
+/* Résumé : transpose l'image dans la structure image*/
+/* Entrée(s) :  char* inputname, image* img*/
+/* Sortie(s) :   */
 int importimage(char* inputname,image* im) {
     char laLigne[10];
     FILE* file = NULL;
@@ -48,7 +54,12 @@ int importimage(char* inputname,image* im) {
         return 1;
     }
 }
-
+//Fonction exporteimage
+/* Auteur : Thomas */
+/* Date :   28/05 */
+/* Résumé : applique à une image les instructions demandées*/
+/* Entrée(s) :  char* outputname, image* img*/
+/* Sortie(s) :   */
 int exportimage(char* outputname,image* im) {
     FILE* file = NULL;
     file = fopen(outputname,"w"); //Creation du fichier
@@ -71,7 +82,12 @@ int exportimage(char* outputname,image* im) {
         return 0;
     }
 }
-
+//Fonction printfimage
+/* Auteur : Thomas */
+/* Date :   28/05 */
+/* Résumé : renvoie les données de l'image avec les instructions appliquer*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void printimage(image* im) {
     printf("P3\n");
     printf("%d %d\n",im->x,im->y);
@@ -85,6 +101,12 @@ void printimage(image* im) {
     }
 }
 
+//Fonction exporteimage
+/* Auteur : Thomas */
+/* Date :   27/05 */
+/* Résumé : free les tableaux*/
+/* Entrée(s) : image* img*/
+/* Sortie(s) :   */
 void freeimage(image* im) {
     for (int i = 0; i < im->x; i++) {
         free(im->red[i]);

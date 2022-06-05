@@ -4,6 +4,11 @@
 #include "fonction.h"
 
 //Fonction Binarisation
+/* Auteur : Lilian */
+/* Date :  23/05 */
+/* Résumé : Transforme l'image en noir et blanc à partir d'un seuil de tolérance*/
+/* Entrée(s) :  im* image, int seuil*/
+/* Sortie(s) :   */
 void binaire(image* im,int seuil) { //* Fonction validée
     for(int i=0; i<im->x;i++) { // on balaie les lignes
         for(int j=0; j<im->y;j++) { // on balaie les colonnes
@@ -21,6 +26,11 @@ void binaire(image* im,int seuil) { //* Fonction validée
 }
 
 //Fonction Convolution
+/* Auteur : Lilian */
+/* Date :   30/05 */
+/* Résumé : (à lilian de l'écrire*/
+/* Entrée(s) :  image* img, float** matrice,image* img2 */
+/* Sortie(s) :   */
 void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas le même rendu que sur exemple
     int compteur_red;
     int compteur_green;
@@ -63,6 +73,12 @@ void convolution(image* img, float** matrice,image* img2) { //TODO : Fix ? Pas l
     }
 }
 
+//Fonction contraste
+/* Auteur : Lilian */
+/* Date :   31/05 */
+/* Résumé : renforce le contraste de l'image*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void contraste(image* img) { //*Fonction validée
     float** matrice;
     image img2;
@@ -100,7 +116,12 @@ void contraste(image* img) { //*Fonction validée
     free(matrice);
     freeimage(&img2);
 }
-
+//Fonction floutage
+/* Auteur : Lilian */
+/* Date :   31/05 */
+/* Résumé : rend l'image plus flou*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void floutage(image* img) { //* Fonction validée
     float** matrice;
     image img2;
@@ -138,7 +159,12 @@ void floutage(image* img) { //* Fonction validée
     free(matrice);
     freeimage(&img2);
 }
-
+ //Fonction contour
+/* Auteur : Lilian */
+/* Date :   31/05 */
+/* Résumé : met en évidence les contour de l'image l'image*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void contour(image* img) { //*Fonction valdiée
     float** matrice;
     image img2;
@@ -176,7 +202,12 @@ void contour(image* img) { //*Fonction valdiée
     free(matrice);
     freeimage(&img2);
 }
-
+//Fonction histogramme
+/* Auteur : Lilian */
+/* Date :   26/05 */
+/* Résumé : créé un histogramme de l'image et les met dans un tableau*/
+/* Entrée(s) :  image* img, int* tab*/
+/* Sortie(s) :   */
 //Fonction Histogramme
 void histogramme(image* img,int* tab) { //* Fonction validée
     int x;
@@ -188,12 +219,17 @@ void histogramme(image* img,int* tab) { //* Fonction validée
         }
     for(int i=0; i<x;i++){ // on balaie les lignes
         for(int j=0; j<y;j++){ // on balaie les colonnes
-            tab[img->red[i][j]]++;
+            tab[img->red[i][j]]++; // on rajoute 1 à chaque fois que la couleur apparait
         }
     }
 }
 
 //Fonction Mirroir
+/* Auteur : Lilian */
+/* Date :   01/06 */
+/* Résumé : remplace l'image par une version miroir de celle-ci*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void miroir(image* im) { //* Fonction validée
     int pixel_red=0;
     int pixel_green=0;
@@ -215,6 +251,11 @@ void miroir(image* im) { //* Fonction validée
 }
 
 //Fonction Negatif
+/* Auteur : Lilian */
+/* Date :   25/05 */
+/* Résumé : inverse les valeur rgb des couleurs de l'image*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void negatif(image* im) { //* Fonction validée
     for(int i=0; i<im->x;i++){ // On balaie les lignes
         for(int j=0; j<im->y;j++){ // On balaie les colonnes
@@ -226,6 +267,11 @@ void negatif(image* im) { //* Fonction validée
 }
 
 //Fonction Recadrage_dyna
+/* Auteur : Pierre-Antoine */
+/* Date :   29/05 */
+/* Résumé : permet de voir avec plus de contraste l'histogramme*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void recadyna(image* im) { //* Fonction validée
     float del;
     int* tab;
@@ -233,9 +279,9 @@ void recadyna(image* im) { //* Fonction validée
     int minl;
     int v=0, w=0, z=0;
     tab = malloc(im->maxvalue*sizeof(int));
-    transform_gris(im);
-    histogramme(im,tab);
-    while(v==0) {
+    transform_gris(im); // on met l'image en nuance de gris
+    histogramme(im,tab); // on applique l'histogramme de l'image
+    while(v==0) {        // on cherche la luminescence la plus basse
         if (tab[w]==0){
             w=w+1;
         } else {
@@ -245,7 +291,7 @@ void recadyna(image* im) { //* Fonction validée
     minl=w;
     v=0;
     z=im->maxvalue;
-    while(v==0) {
+    while(v==0) {       // on cherche la luminescence la plus haute
         if (tab[z]==0){
             z=z-1;
         } else {
@@ -254,9 +300,9 @@ void recadyna(image* im) { //* Fonction validée
     }
     maxl=z;
     printf("%d %d \n", maxl, minl);
-    del = (float)255/(maxl-minl);
+    del = (float)255/(maxl-minl); // on calcule le delta
     printf ("%f\n", del);
-    for (int i = 0; i < im->x; i++) {
+    for (int i = 0; i < im->x; i++) { // on applique la formule pour tous les pixels
         for (int j=0; j<im->y;j++){
             im->red[i][j]= (im->red[i][j]-minl)*del;
             im->green[i][j]= (im->green[i][j]-minl)*del;
@@ -266,11 +312,16 @@ void recadyna(image* im) { //* Fonction validée
 }
 
 //Fonction Rotate
-void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT / YES ITS TRUE THIS TIME)
-    image im2;
-    im2.x = im->y;
+/* Auteur : Pierre-Antoine */
+/* Date :   02/06 */
+/* Résumé : fait tourner une image à 90° vers la gauche*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
+void rotate(image* im) { //* FONCTION VALIDEE 
+    image im2;   // creation d'une image de transite
+    im2.x = im->y;      //on inverse la longueur et la largeur de l'image
     im2.y = im->x;
-    im2.red=(int**)malloc(im2.x *sizeof(int*));
+    im2.red=(int**)malloc(im2.x *sizeof(int*)); //on alloue les different pixel en fonction de la nouvelle resolution
     for (int g = 0; g < im2.x; g++) {
         im2.red[g]=(int*)malloc(im2.y *sizeof(int));
     }
@@ -282,14 +333,14 @@ void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT 
     for (int f = 0; f < im2.x; f++) {
         im2.blue[f]=(int*)malloc(im2.y *sizeof(int));
     }
-    for(int i=0; i<im2.x; i++) {
+    for(int i=0; i<im2.x; i++) {   // on transpose les pixels de l'image de base vers l'image de transition
         for(int j=0; j<im2.y; j++) {
             im2.red[i][j]=im->red[j][im2.x-i-1];
             im2.green[i][j]=im->green[j][im2.x-i-1];
             im2.blue[i][j]=im->blue[j][im2.x-i-1];
         }
     }
-    im->red = realloc(im->red, im2.x *sizeof(int*));
+    im->red = realloc(im->red, im2.x *sizeof(int*)); // on realloue la largeur et la longueur de l'image de base
     for (int g = 0; g < im2.x; g++) {
         im->red[g] = realloc(im->red[g], im2.y *sizeof(int));
     }
@@ -303,17 +354,22 @@ void rotate(image* im) { //* FONCTION VALDIEE (NO JOKE / NO TROLL / NO BULLSHIT 
     }
     im->x = im2.x;
     im->y = im2.y;
-        for(int i=0; i<im->y; i++) {
+        for(int i=0; i<im->y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
             for(int j=0; j<im->x; j++) {
                 im->red[j][i]=im2.red[j][i];
                 im->green[j][i]=im2.green[j][i];
                 im->blue[j][i]=im2.blue[j][i];
             }
         }
-    freeimage(&im2);
+    freeimage(&im2);  // on free l'image de transition
 }
 
 //Fonction Transform_gris
+/* Auteur : Lilian */
+/* Date :   24/05 */
+/* Résumé : Change l'image en nuance de gris*/
+/* Entrée(s) :  image* img*/
+/* Sortie(s) :   */
 void transform_gris(image* im) { //* Fonction validée
     int pixel=0;
     for(int i=0; i<im->x;i++){ // On balaie les lignes
@@ -326,12 +382,17 @@ void transform_gris(image* im) { //* Fonction validée
         }
     }
 }
-
+//Fonction creercroix
+/* Auteur : Pierre-Antoine */
+/* Date :   04/06 */
+/* Résumé : prends une image vierge et dessine une croix dessus*/
+/* Entrée(s) :  image* img*, int lon, int larg, int ep/
+/* Sortie(s) :   */
 void creercroix (image* im,int lon, int larg, int ep){
    
-    int deca1;
+    int deca1;     // on crée 2 variable utilisés en fonction de l'épaisseur de la croix
     int deca2;
-    im->red = realloc(im->red, lon-1 *sizeof(int*));
+    im->red = realloc(im->red, lon-1 *sizeof(int*)); // on realloue les dimensions de l'image de base par la longueur et la largeur rentré initialement
     for (int g = 0; g < lon; g++) {
         im->red[g] = realloc(im->red[g], larg-1 *sizeof(int));
     }
@@ -346,7 +407,7 @@ void creercroix (image* im,int lon, int larg, int ep){
     im->x=lon;
     im->y=larg;
 
-    for (int i=0; i<lon; i++){
+    for (int i=0; i<lon; i++){  // on rend l'image complétement blanche
         for (int j=0; j<larg; j++){
             im->red[i][j]=255;
             im->green[i][j]=255;
@@ -354,11 +415,11 @@ void creercroix (image* im,int lon, int larg, int ep){
         }
     }
     
-    if (lon%2==0){
+    if (lon%2==0){   // on dessine le train verticale de la croix dans le case on la longueur est pair
         deca1=0;
         deca2=0;
         for(int k=0; k<ep;k++){
-            if (k%2==0){
+            if (k%2==0){        // si k est multiple de 2
                 deca2=deca2+1;
                 for (int i=0; i<larg; i++){
                     im->red[lon/2-(deca2-1)][i]=0;
@@ -374,7 +435,7 @@ void creercroix (image* im,int lon, int larg, int ep){
                 }
             }
         }
-    } else {
+    } else {                    //dans le cas d'une longueur impaire, où le milieu existe
         deca1=0;
         deca2=0;
         for(int k=0; k<ep;k++){
@@ -398,7 +459,7 @@ void creercroix (image* im,int lon, int larg, int ep){
 
     }
     //////////
-    if (larg%2==0){
+    if (larg%2==0){        // on refait la même chose pour la largeur
         deca1=0;
         deca2=0;
         for(int k=0; k<ep;k++){

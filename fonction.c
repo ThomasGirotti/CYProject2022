@@ -61,12 +61,11 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             compteur_blue=0;
             for (int k=0;k<3;k++) {
                 for (int l=0;l<3;l++){
-                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k-1][j+l-1];
-                    compteur_green=compteur_green+matrice[k][l]*img->green[i+k-1][j+l-1];
-                    compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k-1][j+l-1];
+                    compteur_red=compteur_red+matrice[k][l]*tab_red[i+k-1][j+l-1];
+                    compteur_green=compteur_green+matrice[k][l]*tab_green[i+k-1][j+l-1];
+                    compteur_blue=compteur_blue+matrice[k][l]*tab_blue[i+k-1][j+l-1];
                 }
             }
-            
             if (compteur_red>0) {
                 img->red[i-1][j-1]=compteur_red;
             } else {
@@ -80,7 +79,7 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             if (compteur_blue>0) {
                 img->blue[i-1][j-1]=compteur_blue;
             } else {
-                img->blue[i-1][j-1]=0;
+                img2->blue[i-1][j-1]=0;
             }
         }
     }

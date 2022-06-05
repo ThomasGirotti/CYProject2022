@@ -79,7 +79,7 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             if (compteur_blue>0) {
                 img->blue[i][j]=compteur_blue;
             } else {
-                img2->blue[i][j]=0;
+                img->blue[i][j]=0;
             }
         }
     }
@@ -164,7 +164,7 @@ void floutage(image* img) { //* Fonction validée
     matrice[2][0]=0.0625;
     matrice[2][1]=0.125;
     matrice[2][2]=0.0625;
-    convolution(img,matrice,&img2);
+    convolution(img,matrice);
     for (int i = 0; i < 3; i++) {
         free(matrice[i]);
     }
@@ -611,18 +611,29 @@ void zoom(image* im){
     for (int g = 0; g < im2.x; g++) {
         im->blue[g] = realloc(im->blue[g], im2.y *sizeof(int));
     }
-    im->x = im2.x;
-    im->y = im2.y;
-        for(int i=0; i<im->y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
-            for(int j=0; j<im->x; j++) {
+    
+        for(int i=0; i<im2.y; i=i+2) {  // on applique les couleurs de l'image de transition sur l'image de base
+            for(int j=0; j<im2.x; j=j+2) {
                 im->red[j][i]=im2.red[j][i];
+                im->red[j+1][i]=im2.red[j][i];
+                im->red[j][i+1]=im2.red[j][i];
+                im->red[j+1][i+1]=im2.red[j][i];
+               
+               
+               /*
                 im->green[j][i]=im2.green[j][i];
+                im->green[j+1][i]=im2.green[j][i];
+                im->green[j][i+1]=im2.green[j][i];
+                im->green[j+1][i+1]=im2.green[j][i];
+                
+                
+                
                 im->blue[j][i]=im2.blue[j][i];
+                im->blue[j+1][i]=im2.blue[j][i];
+                im->blue[j][i+1]=im2.blue[j][i];
+                im->blue[j+1][i+1]=im2.blue[j][i];*/
             }
         }
-    freeimage(&im2); 
 
-    for(int i=0; i<im->y; i=i+2) { 
-        printf("%d",im2.red[i][i]);
-    }
+    freeimage(&im2); 
 }

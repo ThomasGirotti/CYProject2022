@@ -59,27 +59,28 @@ void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rend
             compteur_red=0;
             compteur_green=0;
             compteur_blue=0;
-            for (int k=-1;k<2;k++) {
-                for (int l=-1;l<2;l++){
-                    compteur_red=compteur_red+matrice[k+1][l+1]*img->red[i+k][j+l];
-                    compteur_green=compteur_green+matrice[k+1][l+1]*img->green[i+k][j+l];
-                    compteur_blue=compteur_blue+matrice[k+1][l+1]*img->blue[i+k][j+l];
+            for (int k=0;k<3;k++) {
+                for (int l=0;l<3;l++){
+                    compteur_red=compteur_red+matrice[k][l]*img->red[i+k-1][j+l-1];
+                    compteur_green=compteur_green+matrice[k][l]*img->green[i+k-1][j+l-1];
+                    compteur_blue=compteur_blue+matrice[k][l]*img->blue[i+k-1][j+l-1];
                 }
             }
+            
             if (compteur_red>0) {
-                img->red[i][j]=compteur_red;
+                img->red[i-1][j-1]=compteur_red;
             } else {
-                img->red[i][j]=0;
+                img->red[i-1][j-1]=0;
             }
             if (compteur_green>0) {
-                img->green[i][j]=compteur_green;
+                img->green[i-1][j-1]=compteur_green;
             } else {
-                img->green[i][j]=0;
+                img->green[i-1][j-1]=0;
             }
             if (compteur_blue>0) {
-                img->blue[i][j]=compteur_blue;
+                img->blue[i-1][j-1]=compteur_blue;
             } else {
-                img->blue[i][j]=0;
+                img->blue[i-1][j-1]=0;
             }
         }
     }

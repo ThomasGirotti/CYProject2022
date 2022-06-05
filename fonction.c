@@ -253,9 +253,7 @@ void recadyna(image* im) { //* Fonction validée
         }
     }
     maxl=z;
-    printf("%d %d \n", maxl, minl);
     del = (float)255/(maxl-minl);
-    printf ("%f\n", del);
     for (int i = 0; i < im->x; i++) {
         for (int j=0; j<im->y;j++){
             im->red[i][j]= (im->red[i][j]-minl)*del;

@@ -389,23 +389,24 @@ void transform_gris(image* im) { //* Fonction validée
 /* Entrée(s) :  image* img*, int lon, int larg, int ep/
 /* Sortie(s) :   */
 void creercroix (image* im,int lon, int larg, int ep){
-   
     int deca1;     // on crée 2 variable utilisés en fonction de l'épaisseur de la croix
     int deca2;
-    im->red = realloc(im->red, lon-1 *sizeof(int*)); // on realloue les dimensions de l'image de base par la longueur et la largeur rentré initialement
-    for (int g = 0; g < lon; g++) {
-        im->red[g] = realloc(im->red[g], larg-1 *sizeof(int));
-    }
-    im->green = realloc(im->green, lon-1 *sizeof(int*));
-    for (int g = 0; g < lon; g++) {
-        im->green[g] = realloc(im->green[g], larg-1 *sizeof(int));
-    }
-    im->blue = realloc(im->blue, lon-1 *sizeof(int*));
-    for (int g = 0; g < lon; g++) {
-        im->blue[g] = realloc(im->blue[g], larg-1 *sizeof(int));
-    }
     im->x=lon;
     im->y=larg;
+    printf("%d %d", im->x, lon);
+   /* im->red = realloc(im->red, im->x *sizeof(int*)); // on realloue les dimensions de l'image de base par la longueur et la largeur rentré initialement
+    for (int g = 0; g < im->x; g++) {
+        im->red[g] = realloc(im->red[g], im->y *sizeof(int));
+    }
+    
+    im->green = realloc(im->green, im->x *sizeof(int*));
+    for (int g = 0; g < im->x; g++) {
+        im->green[g] = realloc(im->green[g], im->y *sizeof(int));
+    }
+    im->blue = realloc(im->blue, im->x *sizeof(int*));
+    for (int g = 0; g < im->x; g++) {
+        im->blue[g] = realloc(im->blue[g], im->y *sizeof(int));
+    }
 
     for (int i=0; i<lon; i++){  // on rend l'image complétement blanche
         for (int j=0; j<larg; j++){
@@ -501,13 +502,13 @@ void creercroix (image* im,int lon, int larg, int ep){
             }
         }
 
-    }
+    }*/
 
 
 } 
 
-/*void erosion(image* im,croix cr){   //prototype de erosion
-  int compteur_red;
+void erosion(image* im,croix cr){   //prototype de erosion
+  /*int compteur_red;
   int tab_red[im->x][im->y];
   int max_pix=0;
   for (int i=0;i<(im->x);i++) {
@@ -531,11 +532,11 @@ void creercroix (image* im,int lon, int larg, int ep){
             im->blue[i][j]=max_pix;
            }
       }
-    }
-} */
+    }*/
+} 
 
-/*void dilatation(image* im,croix cr){  // prototype de dilatation
-  int compteur_red;
+void dilatation(image* im,croix cr){  // prototype de dilatation
+ /* int compteur_red;
   int tab_red[im->x][im->y];
   int max_pix=255;
   for (int i=0;i<(im->x);i++) {
@@ -559,58 +560,57 @@ void creercroix (image* im,int lon, int larg, int ep){
             im->blue[i][j]=max_pix;
            }
       }
+    }*/
+}
+
+
+void zoom(image* im){
+    image im2;
+    im2.x=im->x/2;
+    im2.y=im->y/2;
+    im2.red=(int**)malloc(im2.x *sizeof(int*)); //on alloue les different pixel en fonction de la nouvelle resolution
+    for (int g = 0; g < im2.x; g++) {
+        im2.red[g]=(int*)malloc(im2.y *sizeof(int));
     }
-}*/
-/*void convolution(image* img, float** matrice) { //TODO : Fix ? Pas le même rendu que sur exemple
-    int compteur_red=0;
-    int compteur_green=0;
-    int compteur_blue=0;    
-    
-    
-    int tab_red[img->x+2][img->y+2];
-    int tab_green[img->x+2][img->y+2];
-    int tab_blue[img->x+2][img->y+2];
-    for (int i=0;i<(img->x)+2;i++) {
-        for (int j=0;j<(img->y)+2;j++) {
-            if (i==0 || i==img->x+1 || j==0 || j==img->y+1){
-                tab_red[i][j]=0;
-                tab_green[i][j]=0;
-                tab_blue[i][j]=0;
-            }
-            else {
-                tab_red[i][j]=img->red[i-1][j-1];
-                tab_green[i][j]=img->green[i-1][j-1];
-                tab_blue[i][j]=img->blue[i-1][j-1];
-            }
-        }
-    }   
-    for (int i=1;i<(img->x)+1;i++) {
-        for (int j=1;j<(img->y)+1;j++) {
-            compteur_red=0;
-            compteur_green=0;
-            compteur_blue=0;
-            for (int k=-1;k<2;k++) {
-                for (int l=-1;l<2;l++){
-                    compteur_red=compteur_red+matrice[k+1][l+1]*img->red[i+k][j+l];
-                    compteur_green=compteur_green+matrice[k+1][l+1]*img->green[i+k][j+l];
-                    compteur_blue=compteur_blue+matrice[k+1][l+1]*img->blue[i+k][j+l];
-                }
-            }
-            if (compteur_red>0) {
-                img->red[i][j]=compteur_red;
-            } else {
-                img->red[i][j]=0;
-            }
-            if (compteur_green>0) {
-                img->green[i][j]=compteur_green;
-            } else {
-                img->green[i][j]=0;
-            }
-            if (compteur_blue>0) {
-                img->blue[i][j]=compteur_blue;
-            } else {
-                img2->blue[i][j]=0;
-            }
+    im2.green=(int**)malloc(im2.x *sizeof(int*));
+    for (int h = 0; h < im2.x; h++) {
+        im2.green[h]=(int*)malloc(im2.y *sizeof(int));
+    }
+    im2.blue=(int**)malloc(im2.x *sizeof(int*));
+    for (int f = 0; f < im2.x; f++) {
+        im2.blue[f]=(int*)malloc(im2.y *sizeof(int));
+    }
+      for(int i=0; i<im2.x; i++) {   // on transpose les pixels de l'image de base vers l'image de transition
+        for(int j=0; j<im2.y; j++) {
+            im2.red[i][j]=im->red[i+(im2.x/2)][j+(im2.y/2)];
+            im2.green[i][j]=im->green[i+(im2.x/2)][j+(im2.y/2)];
+            im2.blue[i][j]=im->blue[i+(im2.x/2)][j+(im2.y/2)];
         }
     }
-}*/
+    im->red = realloc(im->red, im2.x *sizeof(int*)); // on realloue la largeur et la longueur de l'image de base
+    for (int g = 0; g < im2.x; g++) {
+        im->red[g] = realloc(im->red[g], im2.y *sizeof(int));
+    }
+    im->green = realloc(im->green, im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im->green[g] = realloc(im->green[g], im2.y *sizeof(int));
+    }
+    im->blue = realloc(im->blue, im2.x *sizeof(int*));
+    for (int g = 0; g < im2.x; g++) {
+        im->blue[g] = realloc(im->blue[g], im2.y *sizeof(int));
+    }
+    im->x = im2.x;
+    im->y = im2.y;
+        for(int i=0; i<im->y; i++) {  // on applique les couleurs de l'image de transition sur l'image de base
+            for(int j=0; j<im->x; j++) {
+                im->red[j][i]=im2.red[j][i];
+                im->green[j][i]=im2.green[j][i];
+                im->blue[j][i]=im2.blue[j][i];
+            }
+        }
+    freeimage(&im2); 
+
+    for(int i=0; i<im->y; i=i+2) { 
+        printf("%d",im2.red[i][i]);
+    }
+}

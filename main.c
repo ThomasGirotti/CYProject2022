@@ -3,13 +3,10 @@
 #include <string.h>
 #include <getopt.h>
 #include "fonction.h"
-
 //Macros
 #define OPTSTR "hb:cdefgi:lmno:prsx:Zz"
-
 //Fonction main
 int main(int argc, char *argv[]) {
-
     //Déclaration des variables
     int opt;
     int input = 0;
@@ -37,7 +34,6 @@ int main(int argc, char *argv[]) {
     char* inputname;
     char* outputname;
     image im;
-
     //Définition des actions en fonction des arguments
     while ((opt = getopt(argc, argv, OPTSTR)) != EOF) {
         switch(opt) {
@@ -147,7 +143,6 @@ int main(int argc, char *argv[]) {
         printf("Erreur : Les arguments ont mal été entrés !\nUtilisez l'argument -h pour afficher l'aide.\n");
         exit(EXIT_FAILURE);
     }
-
     //Execution des actions en fonction des arguments
     if ((input > 0) || (actio > 0)) {
         if (input > 0) {
@@ -223,6 +218,9 @@ int main(int argc, char *argv[]) {
         dilatation(&im,croix5);
     }
 
+    if(grandz > 0) {
+        zoom(&im);
+    }
     //Sauvegarde ou affichage
     if (output > 0) {
         error = exportimage(outputname,&im);
@@ -230,6 +228,7 @@ int main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
     } else {
+        printimage(&im);
         //printimage(&im);
     }
 

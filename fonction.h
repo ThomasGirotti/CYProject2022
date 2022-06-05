@@ -13,7 +13,7 @@ typedef struct image{
 typedef struct croix{
   int x;
   int y;
-  int largeur;
+  int epaisseur;
   image im;
 } croix;
 
@@ -21,7 +21,6 @@ typedef struct croix{
 int importimage(char* inputname,image* im);
 int exportimage(char* outputname,image* im);
 void printimage(image* im);
-
 void creercroix (image* im, int lon, int larg, int ep);
 void binaire(image* im,int seuil);
 void contraste(image* img);

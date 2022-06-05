@@ -470,8 +470,14 @@ void creercroix (image* im,int lon, int larg, int ep){
     }*/
 
 
-} 
+}
 
+//Fonction dilatation
+/* Auteur : Lilian */
+/* Date :   04/06 */
+/* Résumé : effectue une dilatation sur l'image d'entrée à l'aide de la structure croix de taille 5*/
+/* Entrée(s) :  image* im, croix cr*/
+/* Sortie(s) :   */
 void dilatation(image* im,croix cr) {
     transform_gris(im);
     image im2;
@@ -522,7 +528,12 @@ void dilatation(image* im,croix cr) {
     }
 }
 
-
+//Fonction erosion
+/* Auteur : Lilian */
+/* Date :   04/06 */
+/* Résumé : effectue une erosion sur l'image d'entrée à l'aide de la structure croix de taille 5*/
+/* Entrée(s) :  image* im, croix cr*/
+/* Sortie(s) :   */
 void erosion(image* im,croix cr) {
     transform_gris(im);
     image im2;
@@ -573,6 +584,12 @@ void erosion(image* im,croix cr) {
     }
 }
 
+//Fonction zoom
+/* Auteur : Pierre-Antoine */
+/* Date :   05/06 */
+/* Résumé : effectue un zoom * 2 sur l'image en entrée*/
+/* Entrée(s) :  image* im*/
+/* Sortie(s) :   */
 void zoom(image* im){
     image im2;
     int a, b;
@@ -641,6 +658,12 @@ void zoom(image* im){
     freeimage(&im2); 
 }
 
+//Fonction dilatation
+/* Auteur : Pierre-Antoine */
+/* Date :   05/06 */
+/* Résumé : effectue un dézoom /2 sur l'image en entrée*/
+/* Entrée(s) :  image* im*/
+/* Sortie(s) :   */
 void dezoom(image* im){
     
 }
